@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0453F4FA2192E49700339AAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453F4F92192E49700339AAB /* AppDelegate.swift */; };
-		0453F4FC2192E49700339AAB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453F4FB2192E49700339AAB /* ViewController.swift */; };
 		0453F4FF2192E49700339AAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0453F4FD2192E49700339AAB /* Main.storyboard */; };
 		0453F5022192E49700339AAB /* ShopApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0453F5002192E49700339AAB /* ShopApp.xcdatamodeld */; };
 		0453F5042192E49800339AAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0453F5032192E49800339AAB /* Assets.xcassets */; };
@@ -25,7 +24,6 @@
 /* Begin PBXFileReference section */
 		0453F4F62192E49700339AAB /* ShopApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0453F4F92192E49700339AAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0453F4FB2192E49700339AAB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0453F4FE2192E49700339AAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0453F5012192E49700339AAB /* ShopApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShopApp.xcdatamodel; sourceTree = "<group>"; };
 		0453F5032192E49800339AAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,7 +77,6 @@
 				0453F5182195C7E400339AAB /* Models */,
 				0453F50E2192E52700339AAB /* GoogleService-Info.plist */,
 				0453F4F92192E49700339AAB /* AppDelegate.swift */,
-				0453F4FB2192E49700339AAB /* ViewController.swift */,
 				0453F4FD2192E49700339AAB /* Main.storyboard */,
 				0453F5032192E49800339AAB /* Assets.xcassets */,
 				0453F5052192E49800339AAB /* LaunchScreen.storyboard */,
@@ -249,7 +246,6 @@
 				047636D121DE1BC8001F1BD1 /* HeaderReusableView.swift in Sources */,
 				0453F51721932EC900339AAB /* ItemCell.swift in Sources */,
 				0453F5022192E49700339AAB /* ShopApp.xcdatamodeld in Sources */,
-				0453F4FC2192E49700339AAB /* ViewController.swift in Sources */,
 				0453F4FA2192E49700339AAB /* AppDelegate.swift in Sources */,
 				047636CF21DE0AD0001F1BD1 /* Constants.swift in Sources */,
 			);
