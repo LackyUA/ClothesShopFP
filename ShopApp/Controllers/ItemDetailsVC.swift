@@ -19,6 +19,7 @@ class ItemDetailsVC: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var priceLabel: UILabel!
     
     // MARK: - Actions
     @IBAction func backToListTapped(_ sender: Any) {
@@ -26,9 +27,9 @@ class ItemDetailsVC: UIViewController {
     }
     @IBAction func actionButtonTapped(_ sender: UIButton) {
         switch sender.tag {
+            
         // Favorite button
         case 0:
-            sender.tintColor = .green
             print("Favorite")
             
         // Card button
@@ -46,6 +47,7 @@ class ItemDetailsVC: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        priceLabel.text = "Price: \(item.price)$"
     }
     
 }
@@ -86,8 +88,5 @@ extension ItemDetailsVC: UICollectionViewDelegateFlowLayout, UICollectionViewDat
         
         return sectionInsets.left
     }
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("Hi there, my index is: \(indexPath.item)")
-//    }
     
 }

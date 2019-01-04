@@ -16,12 +16,14 @@ protocol JSONAbleType {
 final class Item: NSObject, JSONAbleType {
     let id: String
     let name: String
+    let price: Double
     let categories: [String]
     let images: [String]
     
-    init(id: String = "", name: String = "", categories: [String] = [""], images: [String] = [""]) {
+    init(id: String = "", name: String = "", price: Double = 0.0, categories: [String] = [""], images: [String] = [""]) {
         self.id = id
         self.name = name
+        self.price = price
         self.categories = categories
         self.images = images
     }
@@ -30,6 +32,8 @@ final class Item: NSObject, JSONAbleType {
         let json = JSON(json)
 
         let name = json[id]["name"].stringValue
+        
+        let price = json[id]["price"].doubleValue
         
         var categories = [String]()
         for category in json[id]["categories"].dictionaryValue.keys {
@@ -41,6 +45,6 @@ final class Item: NSObject, JSONAbleType {
             images.append(image.stringValue)
         }
         
-        return Item(id: id, name: name, categories: categories, images: images)
+        return Item(id: id, name: name, price: price, categories: categories, images: images)
     }
 }

@@ -37,10 +37,11 @@ class ImageCell: UICollectionViewCell {
     @objc func pinch(sender: UIPinchGestureRecognizer) {
         switch sender.state {
         case .began, .changed:
-            let currentScale = self.imageView.frame.size.width / self.imageView.frame.size.width
-            let newScale = currentScale * sender.scale
             if !(sender.scale < 1.0) {
-                self.imageView.transform = CGAffineTransform(scaleX: newScale, y: newScale)
+                self.imageView.transform = CGAffineTransform(
+                    scaleX: self.imageView.frame.size.width / self.imageView.frame.size.width * sender.scale,
+                    y: self.imageView.frame.size.width / self.imageView.frame.size.width * sender.scale
+                )
             }
             
         case .ended:
