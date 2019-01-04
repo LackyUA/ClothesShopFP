@@ -104,7 +104,10 @@ extension ShopVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
         return sectionInsets.left
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Hi there, my index is: \(indexPath.item)")
+        if let detailController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Details") as? ItemDetailsVC {
+            detailController.item = items[indexPath.row]
+            present(detailController, animated: true, completion: nil)
+        }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 60)

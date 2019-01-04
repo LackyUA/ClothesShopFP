@@ -19,8 +19,7 @@ final class Item: NSObject, JSONAbleType {
     let categories: [String]
     let images: [String]
     
-    
-    init(id: String, name: String, categories: [String], images: [String]) {
+    init(id: String = "", name: String = "", categories: [String] = [""], images: [String] = [""]) {
         self.id = id
         self.name = name
         self.categories = categories

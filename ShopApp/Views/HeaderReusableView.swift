@@ -14,6 +14,7 @@ class HeaderReusableView: UICollectionReusableView {
     @IBOutlet var headerButtons: [UIButton]!
     
     // MARK: - Actions
+    // TODO: - Add acctions for buttons and configure filters and categories.
     
     // MARK: - Configuration header
     func configureHeader() {
