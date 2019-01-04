@@ -12,6 +12,13 @@ class ImageCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(self.pinch(sender:)))
+        imageView.addGestureRecognizer(pinchGesture)
+    }
+    
     func configureCell(imageUrl: String) {
         loadImage(url: URL(string: imageUrl)!)
     }
@@ -24,6 +31,24 @@ class ImageCell: UICollectionViewCell {
                     }
                 }
             }
+        }
+    }
+    
+    @objc func pinch(sender: UIPinchGestureRecognizer) {
+        switch sender.state {
+        case .began, .changed:
+            let currentScale = self.imageView.frame.size.width / self.imageView.frame.size.width
+            let newScale = currentScale * sender.scale
+            if !(sender.scale < 1.0) {
+                self.imageView.transform = CGAffineTransform(scaleX: newScale, y: newScale)
+            }
+            
+        case .ended:
+            self.imageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            sender.scale = 1
+            
+        default:
+            break
         }
     }
     

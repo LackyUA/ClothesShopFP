@@ -86,8 +86,8 @@ extension ItemDetailsVC: UICollectionViewDelegateFlowLayout, UICollectionViewDat
         
         return sectionInsets.left
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Hi there, my index is: \(indexPath.item)")
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        print("Hi there, my index is: \(indexPath.item)")
+//    }
     
 }
