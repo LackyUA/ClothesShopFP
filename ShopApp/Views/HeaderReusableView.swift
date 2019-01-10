@@ -11,7 +11,7 @@ import UIKit
 class HeaderReusableView: UICollectionReusableView {
     
     // MARK: - Outlets
-    @IBOutlet var headerButtons: [UIButton]!
+    @IBOutlet private var headerButtons: [UIButton]!
     
     // MARK: - Actions
     // TODO: - Add acctions for buttons and configure filters and categories.

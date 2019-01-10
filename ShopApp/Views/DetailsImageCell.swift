@@ -8,10 +8,12 @@
 
 import UIKit
 
-class ImageCell: UICollectionViewCell {
+class DetailsImageCell: UICollectionViewCell {
     
-    @IBOutlet weak var imageView: UIImageView!
+    // MARK: - Outlets
+    @IBOutlet private weak var imageView: UIImageView!
     
+    // MARK: - Life cyrcle
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -19,6 +21,7 @@ class ImageCell: UICollectionViewCell {
         imageView.addGestureRecognizer(pinchGesture)
     }
     
+    // MARK: - Configure cell appearence
     func configureCell(imageUrl: String) {
         loadImage(url: URL(string: imageUrl)!)
     }
@@ -34,6 +37,7 @@ class ImageCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Configure image zoom
     @objc func pinch(sender: UIPinchGestureRecognizer) {
         switch sender.state {
         case .began, .changed:

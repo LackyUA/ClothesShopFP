@@ -8,11 +8,13 @@
 
 import UIKit
 
-class ItemCell: UICollectionViewCell {
+class ShopItemCell: UICollectionViewCell {
     
-    @IBOutlet weak var itemImageView: UIImageView!
-    @IBOutlet weak var itemDescriptionLabel: UILabel!
+    // MARK: - Outlets
+    @IBOutlet private weak var itemImageView: UIImageView!
+    @IBOutlet private weak var itemDescriptionLabel: UILabel!
     
+    // MARK: - Configure cell appearence
     func configureCell(imageUrl: String, description: NSAttributedString) {
         loadImage(url: URL(string: imageUrl)!)
         itemDescriptionLabel.attributedText = description

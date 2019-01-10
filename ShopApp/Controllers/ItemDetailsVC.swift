@@ -9,17 +9,14 @@
 import UIKit
 
 class ItemDetailsVC: UIViewController {
-
-    // MARK: - Constants
-    private let itemsPerRow: CGFloat = 1
-    private let sectionInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
     
     // MARK: - Properties
     var item = Item()
     
     // MARK: - Outlets
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var priceLabel: UILabel!
+    @IBOutlet private weak var pageControl: UIPageControl!
     
     // MARK: - Actions
     @IBAction func backToListTapped(_ sender: Any) {
@@ -45,14 +42,36 @@ class ItemDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        delegate()
+        configureInterface()
+    }
+    
+    // MARK: - Delegations
+    private func delegate() {
         collectionView.delegate = self
         collectionView.dataSource = self
+    }
+    
+    // MARK: - Interface methods
+    private func configureInterface() {
         priceLabel.text = "Price: \(item.price)$"
+        
+        pageControl.numberOfPages = item.images.count
+    }
+    
+    // MARK: - Page swipe detector
+    private var currentCellIndexPath: Int {
+        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+        
+        guard let indexPath = collectionView.indexPathForItem(at: visiblePoint) else { return 0 }
+        
+        return indexPath.row
     }
     
 }
 
-// MARK: - Collection view methods(data source/delegate)
+// MARK: - Configure collection view data source and delegate
 extension ItemDetailsVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -62,7 +81,7 @@ extension ItemDetailsVC: UICollectionViewDelegateFlowLayout, UICollectionViewDat
         return item.images.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as? ImageCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.reusableIdentifiers.detailsImageCell, for: indexPath) as? DetailsImageCell {
             cell.configureCell(imageUrl: item.images[indexPath.row])
             
             return cell
@@ -80,13 +99,16 @@ extension ItemDetailsVC: UICollectionViewDelegateFlowLayout, UICollectionViewDat
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        return sectionInsets
+        return Constants.detailViewInsets.sectionInsets
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         
-        return sectionInsets.left
+        return Constants.detailViewInsets.sectionInsets.left
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        pageControl.currentPage = currentCellIndexPath
     }
     
 }

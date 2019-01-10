@@ -13,10 +13,6 @@ import SwiftyJSON
 class ShopVC: UIViewController {
 
     // MARK: - Constants
-    private let reusableCellIdentifier = "ItemCell"
-    private let itemsPerRow: CGFloat = 2
-    private let itemHeight: CGFloat = 300
-    private let sectionInsets = UIEdgeInsets(top: 30.0, left: 15.0, bottom: 30.0, right: 15.0)
     private let descriptionAttribute: [NSAttributedString.Key: Any] = [
         .backgroundColor: UIColor.clear,
         .font: UIFont.boldSystemFont(ofSize: 16),
@@ -28,7 +24,7 @@ class ShopVC: UIViewController {
     private var items = [Item]()
     
     // MARK: - Outlets
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
     
     // MARK: - Life circle
     override func viewDidLoad() {
@@ -60,7 +56,7 @@ class ShopVC: UIViewController {
 
 }
 
-// MARK: - Collection view methods(data source/delegate)
+// MARK: - Configure collection view data source and delegate
 extension ShopVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -70,7 +66,7 @@ extension ShopVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
         return items.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusableCellIdentifier, for: indexPath) as? ItemCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.reusableIdentifiers.shopItemCell, for: indexPath) as? ShopItemCell {
             
             cell.configureCell(
                 imageUrl: items[indexPath.item].images.first ?? "",
@@ -85,23 +81,23 @@ extension ShopVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let paddingSpace = Constants.shopViewInsets.sectionInsets.left * (Constants.shopViewInsets.itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
-        let widthPerItem = availableWidth / itemsPerRow
+        let widthPerItem = availableWidth / Constants.shopViewInsets.itemsPerRow
         
-        return CGSize(width: widthPerItem, height: itemHeight)
+        return CGSize(width: widthPerItem, height: Constants.shopViewInsets.itemHeight)
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        return sectionInsets
+        return Constants.shopViewInsets.sectionInsets
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         
-        return sectionInsets.left
+        return Constants.shopViewInsets.sectionInsets.left
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let detailController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Details") as? ItemDetailsVC {
@@ -116,7 +112,7 @@ extension ShopVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
 
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderView", for: indexPath) as! HeaderReusableView
+            let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.reusableIdentifiers.headerView, for: indexPath) as! HeaderReusableView
             
             reusableView.configureHeader()
 
