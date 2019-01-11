@@ -210,6 +210,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Availabiliity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1l4-Lf-gF2">
+                                <rect key="frame" x="261" y="34.5" width="99" height="21.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="jOs-f9-Q7o">
                                 <rect key="frame" x="168" y="630" width="39" height="37"/>
                                 <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -219,6 +225,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="MV3-DB-r5L" firstAttribute="bottom" secondItem="Oag-HM-MZS" secondAttribute="bottom" id="5bS-Vc-a7X"/>
+                            <constraint firstItem="Oag-HM-MZS" firstAttribute="trailing" secondItem="1l4-Lf-gF2" secondAttribute="trailing" constant="15" id="Dtp-V9-c9w"/>
                             <constraint firstItem="ZaD-Df-Byd" firstAttribute="leading" secondItem="Oag-HM-MZS" secondAttribute="leading" constant="15" id="F0f-fO-xAx"/>
                             <constraint firstItem="Oag-HM-MZS" firstAttribute="bottom" secondItem="dpu-JZ-9Pw" secondAttribute="bottom" constant="30" id="HMB-yA-UEz"/>
                             <constraint firstItem="dpu-JZ-9Pw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FuE-RT-6XN" secondAttribute="trailing" constant="20" id="IwT-j0-mIj"/>
@@ -229,6 +236,7 @@
                             <constraint firstItem="ZaD-Df-Byd" firstAttribute="top" secondItem="Oag-HM-MZS" secondAttribute="top" constant="10" id="b9u-EB-OVo"/>
                             <constraint firstItem="Oag-HM-MZS" firstAttribute="bottom" secondItem="jOs-f9-Q7o" secondAttribute="bottom" id="f73-WZ-F8P"/>
                             <constraint firstItem="MV3-DB-r5L" firstAttribute="trailing" secondItem="Oag-HM-MZS" secondAttribute="trailing" id="fZQ-dr-hB5"/>
+                            <constraint firstItem="1l4-Lf-gF2" firstAttribute="centerY" secondItem="ZaD-Df-Byd" secondAttribute="centerY" id="lUr-YI-jOh"/>
                             <constraint firstItem="Oag-HM-MZS" firstAttribute="trailing" secondItem="dpu-JZ-9Pw" secondAttribute="trailing" constant="15" id="mEQ-UX-NZK"/>
                             <constraint firstItem="MV3-DB-r5L" firstAttribute="top" secondItem="Oag-HM-MZS" secondAttribute="top" id="p5i-TQ-H6K"/>
                         </constraints>
@@ -238,6 +246,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Back" id="SQS-cO-DVV"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="availabilityLabel" destination="1l4-Lf-gF2" id="eK7-NR-RLr"/>
                         <outlet property="collectionView" destination="MV3-DB-r5L" id="lRN-D1-eQu"/>
                         <outlet property="pageControl" destination="jOs-f9-Q7o" id="XPF-8f-evH"/>
                         <outlet property="priceLabel" destination="FuE-RT-6XN" id="BNp-Vx-rUQ"/>
@@ -332,7 +341,7 @@
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
-                                                                <action selector="deleteItem:" destination="noL-L2-ewr" eventType="touchUpInside" id="Bez-dS-CUJ"/>
+                                                                <action selector="buttonTapped:" destination="noL-L2-ewr" eventType="touchUpInside" id="Bez-dS-CUJ"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4h-hf-Zes">
@@ -359,7 +368,7 @@
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EfE-eT-ppn">
+                                                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EfE-eT-ppn">
                                                                             <rect key="frame" x="99" y="0.0" width="35" height="30"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="30" id="nHt-Re-EqK"/>
@@ -368,6 +377,9 @@
                                                                             <state key="normal" title="37">
                                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </state>
+                                                                            <connections>
+                                                                                <action selector="buttonTapped:" destination="noL-L2-ewr" eventType="touchUpInside" id="vJ6-QR-zPH"/>
+                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>
@@ -380,13 +392,16 @@
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RfC-Ye-yiE">
+                                                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RfC-Ye-yiE">
                                                                             <rect key="frame" x="99" y="0.0" width="35" height="30"/>
                                                                             <color key="backgroundColor" red="1" green="0.36862745099999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="30" id="CbC-Th-FuS"/>
                                                                                 <constraint firstAttribute="width" constant="35" id="Z9I-OL-rcW"/>
                                                                             </constraints>
+                                                                            <connections>
+                                                                                <action selector="buttonTapped:" destination="noL-L2-ewr" eventType="touchUpInside" id="ewB-tr-qK7"/>
+                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>

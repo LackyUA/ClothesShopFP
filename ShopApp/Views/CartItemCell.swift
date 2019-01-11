@@ -20,8 +20,20 @@ class CartItemCell: UITableViewCell {
     @IBOutlet private weak var itemColorButton: UIButton!
     
     // MARK: - Actions
-    @IBAction func deleteItem(_ sender: Any) {
-        delegate?.removeCell(self)
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        switch sender.tag {
+        case 0:
+            delegate?.removeCell(self)
+            
+        case 1:
+            delegate?.changeSize(self)
+            
+        case 2:
+            delegate?.changeColor(self)
+            
+        default:
+            break
+        }
     }
     
     // MARK: - Configuring cell appearence

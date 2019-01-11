@@ -17,15 +17,29 @@ final class Item: NSObject, JSONAbleType {
     let id: String
     let name: String
     let price: Double
+    let count: Int
     let categories: [String]
     let images: [String]
+    let colors: [String : Int]
+    let sizes: [String : Int]
     
-    init(id: String = "", name: String = "", price: Double = 0.0, categories: [String] = [""], images: [String] = [""]) {
+    init( id: String = "",
+          name: String = "",
+          price: Double = 0.0,
+          count: Int = 0,
+          categories: [String] = [""],
+          images: [String] = [""],
+          colors: [String : Int] = [:],
+          sizes: [String : Int] = [:] )
+    {
         self.id = id
         self.name = name
         self.price = price
+        self.count = count
         self.categories = categories
         self.images = images
+        self.colors = colors
+        self.sizes = sizes
     }
 
     static func fromJSON(_ json:[String: Any], withID id: String) -> Item {
@@ -35,16 +49,28 @@ final class Item: NSObject, JSONAbleType {
         
         let price = json[id]["price"].doubleValue
         
+        let count = json[id]["count"].intValue
+        
         var categories = [String]()
-        for category in json[id]["categories"].dictionaryValue.keys {
-            categories.append(category)
+        json[id]["categories"].dictionaryValue.forEach {
+            categories.append($0.key)
         }
         
         var images = [String]()
-        for image in json[id]["images"].arrayValue {
-            images.append(image.stringValue)
+        json[id]["images"].arrayValue.forEach {
+            images.append($0.stringValue)
         }
         
-        return Item(id: id, name: name, price: price, categories: categories, images: images)
+        var colors = [String : Int]()
+        json[id]["colors"].dictionaryValue.forEach {
+            colors[$0.key] = $0.value.intValue
+        }
+        
+        var sizes = [String : Int]()
+        json[id]["sizes"].dictionaryValue.forEach {
+            sizes[$0.key] = $0.value.intValue
+        }
+        
+        return Item(id: id, name: name, price: price, count: count, categories: categories, images: images, colors: colors, sizes: sizes)
     }
 }

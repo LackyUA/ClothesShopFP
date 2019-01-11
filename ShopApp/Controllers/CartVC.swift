@@ -85,9 +85,21 @@ extension CartVC: CartCellDelegate {
         tableView.deleteRows(at: [tappedIndexPath], with: .automatic)
         totalPriceLabel.text = "Total price: \(totalPrice())$"
     }
+    func changeSize(_ sender: CartItemCell) {
+        guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
+        
+        print("Change size for \(tappedIndexPath.row) index")
+    }
+    func changeColor(_ sender: CartItemCell) {
+        guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
+        
+        print("Change color for \(tappedIndexPath.row) index")
+    }
 }
 
 // MARK: - Cart cell delegate protocol
 protocol CartCellDelegate: class {
     func removeCell(_ sender: CartItemCell)
+    func changeSize(_ sender: CartItemCell)
+    func changeColor(_ sender: CartItemCell)
 }

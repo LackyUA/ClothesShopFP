@@ -16,6 +16,7 @@ class ItemDetailsVC: UIViewController {
     // MARK: - Outlets
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var priceLabel: UILabel!
+    @IBOutlet private weak var availabilityLabel: UILabel!
     @IBOutlet private weak var pageControl: UIPageControl!
     
     // MARK: - Actions
@@ -55,6 +56,13 @@ class ItemDetailsVC: UIViewController {
     // MARK: - Interface methods
     private func configureInterface() {
         priceLabel.text = "Price: \(item.price)$"
+        if item.count != 0 {
+            availabilityLabel.text = "Available"
+            availabilityLabel.textColor = .green
+        } else {
+            availabilityLabel.text = "Not available"
+            availabilityLabel.textColor = .red
+        }
         
         pageControl.numberOfPages = item.images.count
     }
