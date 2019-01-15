@@ -37,11 +37,8 @@ class CartItemCell: UITableViewCell {
     }
     
     // MARK: - Configuring cell appearence
-    func configureCell(item: Item) {
-        if
-            let image = item.images.first,
-            let url = URL(string: image)
-        {
+    func configureCell(item: CartItem) {
+        if let url = URL(string: item.image) {
             loadImage(url: url)
         }
         
@@ -62,9 +59,11 @@ class CartItemCell: UITableViewCell {
         itemSizeButton.layer.masksToBounds = true
         itemSizeButton.layer.borderColor = UIColor.black.cgColor
         itemSizeButton.layer.borderWidth = 0.5
+        itemSizeButton.setTitle("\(item.size)", for: .normal)
         
         itemColorButton.layer.borderColor = UIColor.black.cgColor
         itemColorButton.layer.borderWidth = 0.5
+        itemColorButton.backgroundColor = .red
     }
     private func loadImage(url: URL) {
         DispatchQueue.global().async { [weak self] in

@@ -35,4 +35,10 @@ class Constants {
         static let sectionInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
     }
     
+    // MARK: - User defaults
+    struct userDefaultsIdentifiers {
+        static let fireBaseID = "fireBaseID"
+    }
+    static let userDefaults = UserDefaults.standard
+    
 }

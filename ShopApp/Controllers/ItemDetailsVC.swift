@@ -11,7 +11,10 @@ import UIKit
 class ItemDetailsVC: UIViewController {
     
     // MARK: - Properties
-    var item = Item()
+    var item = ShopItem()
+    
+    // MARK: - Constants
+    let currentUser = CurrentUser()
     
     // MARK: - Outlets
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -32,7 +35,17 @@ class ItemDetailsVC: UIViewController {
             
         // Card button
         case 1:
-            print("Card")
+            currentUser?.addItem(
+                uid: item.uid,
+                value: [
+                    FirebaseUserKeys.size.rawValue: 37,
+                    FirebaseUserKeys.color.rawValue: "Red",
+                    FirebaseUserKeys.price.rawValue: item.price,
+                    FirebaseUserKeys.name.rawValue: item.name,
+                    FirebaseUserKeys.image.rawValue: item.images.first ?? "",
+                    FirebaseUserKeys.uid.rawValue: item.uid
+                ]
+            )
             
         default:
             break
@@ -57,7 +70,7 @@ class ItemDetailsVC: UIViewController {
     private func configureInterface() {
         priceLabel.text = "Price: \(item.price)$"
         if item.count != 0 {
-            availabilityLabel.text = "Available"
+            availabilityLabel.text = "In stock"
             availabilityLabel.textColor = .green
         } else {
             availabilityLabel.text = "Not available"

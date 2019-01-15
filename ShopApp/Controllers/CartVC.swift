@@ -7,16 +7,14 @@
 //
 
 import UIKit
+import Firebase
 
 class CartVC: UIViewController {
 
     // MARK: - Properties
-    var items = [
-        Item(id: "213213", name: "Nike boi 228", price: 24.99, categories: [""], images: ["https://assets.adidas.com/images/w_600,f_auto,q_auto/2f488fe90ddf43fdbe77a8c100ca2bb3_9366/POD-S3_1_Shoes_Black_AQ1059_01_standard.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6Lhi6cQGkSJy26V_vAJ7GkkFcNYZuStFdcj92i1qpj1zpvVqS"]),
-        Item(id: "213213", name: "Addiki XL 780 water proof resistance edition", price: 35.99, categories: [""], images: ["https://assets.adidas.com/images/w_600,f_auto,q_auto/2f488fe90ddf43fdbe77a8c100ca2bb3_9366/POD-S3_1_Shoes_Black_AQ1059_01_standard.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6Lhi6cQGkSJy26V_vAJ7GkkFcNYZuStFdcj92i1qpj1zpvVqS"]),
-        Item(id: "213213", name: "sadsadsa dsa dasd sad sadasdasd sadasdas  asd asd asdasdas", price: 24.99, categories: [""], images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6Lhi6cQGkSJy26V_vAJ7GkkFcNYZuStFdcj92i1qpj1zpvVqS"]),
-        Item(id: "213213", name: "sadsadsa dsa dasd sad sadasdasd sadasdas dasdлдрмрпс", price: 24.99, categories: [""], images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6Lhi6cQGkSJy26V_vAJ7GkkFcNYZuStFdcj92i1qpj1zpvVqS"])
-    ]
+    private var items = [CartItem]()
+    private var itemsReference: DatabaseReference?
+    private var currentUserReference: DatabaseReference?
     
     // MARK: - Outlets
     @IBOutlet private weak var tableView: UITableView!
@@ -27,7 +25,7 @@ class CartVC: UIViewController {
         super.viewDidLoad()
         
         delegation()
-        totalPriceLabel.text = "Total price: \(totalPrice())$"
+        getDataFromFirebase()
     }
     private func delegation() {
         tableView.delegate = self
@@ -41,7 +39,42 @@ class CartVC: UIViewController {
             totalPrice += item.price
         }
         
-        return totalPrice
+        return round(totalPrice * 100) / 100
+    }
+    
+    // MARK: - Get data from Firebase
+    private func getDataFromFirebase() {
+        if
+            let currentUser = CurrentUser(),
+            let reference = createFirebaseReference(components: [FirebasePaths.users.rawValue, currentUser.uid, FirebasePaths.items.rawValue])
+        {
+            let path = currentUser.path()
+            
+            self.itemsReference = reference
+            
+            self.currentUserReference = Database.database().reference(withPath: path)
+            self.currentUserReference?.queryOrderedByKey().observe(.value, with: { snapshot in
+                
+                if LoggedUser(snapshot: snapshot) != nil {
+                    self.itemsReference?.queryOrderedByKey().observe(.value, with: { snapshot in
+                        
+                        var itemsFromSnapshot = [CartItem]()
+                        for itemSnapshot in snapshot.children {
+                            if let item = CartItem(snapshot: itemSnapshot as! DataSnapshot) {
+                                itemsFromSnapshot.append(item)
+                            }
+                        }
+                        DispatchQueue.global().async {
+                            self.items = itemsFromSnapshot
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                                self.totalPriceLabel.text = "Total price: \(self.totalPrice())$"
+                            }
+                        }
+                    })
+                }
+            })
+        }
     }
 
 }
@@ -81,6 +114,7 @@ extension CartVC: CartCellDelegate {
     func removeCell(_ sender: CartItemCell) {
         guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
         
+        items[tappedIndexPath.row].removeFromFirebase()
         items.remove(at: tappedIndexPath.row)
         tableView.deleteRows(at: [tappedIndexPath], with: .automatic)
         totalPriceLabel.text = "Total price: \(totalPrice())$"

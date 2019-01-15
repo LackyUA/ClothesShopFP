@@ -20,8 +20,9 @@ class ShopVC: UIViewController {
     ]
 
     // MARK: - Properties
-    private var ref : DatabaseReference!
-    private var items = [Item]()
+    private var items = [ShopItem]()
+    private var itemsReference: DatabaseReference?
+    private var currentUserReference: DatabaseReference?
     
     // MARK: - Outlets
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -32,7 +33,6 @@ class ShopVC: UIViewController {
         
         delegations()
         loadItemsFromFirebase()
-        
     }
     private func delegations() {
         collectionView.delegate = self
@@ -41,15 +41,24 @@ class ShopVC: UIViewController {
     
     // MARK: - Firebase loader
     private func loadItemsFromFirebase() {
-        ref =  Database.database().reference()
-        ref.child("assortment/items").observeSingleEvent(of: .value) { snapshot in
-            let json = JSON(snapshot.value as? [String : Any] ?? [:])
-            json.forEach({ value in
-                self.items.append(Item.fromJSON(json.dictionaryObject ?? [:], withID: value.0))
-            })
-            self.items.forEach({ item in
-                self.collectionView.reloadData()
-                print("ID: \(item.id)\nNAME: \(item.name)\nCATEGORIES: \(item.categories)\nIMAGES: \(item.images)")
+        
+        if let reference = createFirebaseReference(components: [FirebasePaths.assortment.rawValue, FirebasePaths.items.rawValue]) {
+            self.itemsReference = reference
+            
+            self.itemsReference?.queryOrderedByKey().observe(.value, with: { snapshot in
+                
+                var itemsFromSnapshot = [ShopItem]()
+                for itemSnapshot in snapshot.children {
+                    if let item = ShopItem(snapshot: itemSnapshot as! DataSnapshot) {
+                        itemsFromSnapshot.append(item)
+                    }
+                }
+                DispatchQueue.global().async {
+                    self.items = itemsFromSnapshot
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                }
             })
         }
     }
