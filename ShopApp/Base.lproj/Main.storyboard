@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oba-qg-wwE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1EM-7N-2nr">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -41,10 +41,14 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWp-I5-q7H">
                                                     <rect key="frame" x="0.0" y="230" width="300" height="70"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="cellLabel"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="PrO-AY-Ttz">
+                                                    <rect key="frame" x="140" y="105" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
                                         <constraints>
@@ -54,10 +58,13 @@
                                             <constraint firstAttribute="trailing" secondItem="TlH-9S-K1I" secondAttribute="trailing" id="QeN-pC-NB1"/>
                                             <constraint firstAttribute="bottom" secondItem="IWp-I5-q7H" secondAttribute="bottom" id="QtO-Lp-mXa"/>
                                             <constraint firstAttribute="bottom" secondItem="TlH-9S-K1I" secondAttribute="bottom" constant="70" id="Uss-uF-0bC"/>
+                                            <constraint firstItem="PrO-AY-Ttz" firstAttribute="centerY" secondItem="TlH-9S-K1I" secondAttribute="centerY" id="cnv-n6-i0q"/>
                                             <constraint firstAttribute="trailing" secondItem="IWp-I5-q7H" secondAttribute="trailing" id="kSZ-Dy-skR"/>
+                                            <constraint firstItem="PrO-AY-Ttz" firstAttribute="centerX" secondItem="TlH-9S-K1I" secondAttribute="centerX" id="mo3-F3-zsZ"/>
                                             <constraint firstItem="TlH-9S-K1I" firstAttribute="leading" secondItem="vLz-IQ-z65" secondAttribute="leading" id="wNe-IE-xLx"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="activityIndicator" destination="PrO-AY-Ttz" id="DXA-kp-T8k"/>
                                             <outlet property="itemDescriptionLabel" destination="IWp-I5-q7H" id="qM2-9a-A1F"/>
                                             <outlet property="itemImageView" destination="TlH-9S-K1I" id="llp-FZ-ODR"/>
                                         </connections>
@@ -98,6 +105,9 @@
                                         <outletCollection property="headerButtons" destination="xme-qJ-cQm" collectionClass="NSMutableArray" id="3nG-f1-5B1"/>
                                     </connections>
                                 </collectionReusableView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="collectionView--shopCollectionView"/>
+                                </userDefinedRuntimeAttributes>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -154,23 +164,33 @@
                                                     <rect key="frame" x="5" y="0.0" width="365" height="650"/>
                                                     <viewLayoutGuide key="safeArea" id="Svb-nv-Dhk"/>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="SYO-Jo-xyc">
+                                                    <rect key="frame" x="177.5" y="315" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="SYO-Jo-xyc" firstAttribute="centerY" secondItem="K1s-iL-IlK" secondAttribute="centerY" id="1eZ-tl-lyi"/>
+                                            <constraint firstItem="SYO-Jo-xyc" firstAttribute="centerX" secondItem="K1s-iL-IlK" secondAttribute="centerX" id="GeZ-8n-3kt"/>
                                             <constraint firstAttribute="trailing" secondItem="ccz-j4-CU9" secondAttribute="trailing" constant="5" id="Rl0-Pg-Hry"/>
                                             <constraint firstItem="ccz-j4-CU9" firstAttribute="top" secondItem="K1s-iL-IlK" secondAttribute="top" id="ZHl-Iw-LrI"/>
                                             <constraint firstItem="ccz-j4-CU9" firstAttribute="leading" secondItem="K1s-iL-IlK" secondAttribute="leading" constant="5" id="dBu-8p-Mar"/>
                                             <constraint firstAttribute="bottom" secondItem="ccz-j4-CU9" secondAttribute="bottom" id="r68-iR-tjj"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="activityIndicator" destination="SYO-Jo-xyc" id="mvV-4i-db9"/>
                                             <outlet property="imageView" destination="ccz-j4-CU9" id="UEd-w9-MCb"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="collectionView--detailsCollectionView"/>
+                                </userDefinedRuntimeAttributes>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZaD-Df-Byd">
                                 <rect key="frame" x="15" y="30" width="30" height="30"/>
                                 <color key="backgroundColor" red="0.88272303884048442" green="0.88471237695801785" blue="0.91506940817157356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="button--shopDetailsBackButton"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="isZ-5X-j4y"/>
                                     <constraint firstAttribute="height" constant="30" id="oh9-e1-Yjp"/>
@@ -193,6 +213,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TH8-HZ-Yp7">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="button--shopDetailsFavoriteButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="0UF-H0-3di"/>
                                             <constraint firstAttribute="width" constant="30" id="MBk-tV-n7j"/>
@@ -204,6 +225,7 @@
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cey-x0-Ne8">
                                         <rect key="frame" x="45" y="0.0" width="30" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="button--shopDetailsCartButton"/>
                                         <state key="normal" image="shopping-cart"/>
                                         <connections>
                                             <action selector="actionButtonTapped:" destination="Rug-qJ-hGs" eventType="touchUpInside" id="213-SG-s9a"/>
@@ -503,6 +525,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="cellView" destination="r9h-5Y-WVn" id="zbK-fS-bPf"/>
                                             <outlet property="itemColorButton" destination="RfC-Ye-yiE" id="7od-Sp-zLU"/>
                                             <outlet property="itemImage" destination="Xmg-E5-kju" id="rfa-SV-Lny"/>
                                             <outlet property="itemSizeButton" destination="EfE-eT-ppn" id="EMb-Mi-Y0m"/>
@@ -531,7 +554,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dr8-8B-9Gn"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Cart" id="R4h-4n-mGF"/>
+                    <navigationItem key="navigationItem" title="Cart" id="R4h-4n-mGF">
+                        <barButtonItem key="rightBarButtonItem" image="wallet" id="F6o-pr-kU6"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Q0E-cV-B89" id="bsj-Td-L1z"/>
                         <outlet property="totalPriceLabel" destination="S6Y-Ds-a5y" id="HMx-Qr-rSI"/>
@@ -566,5 +591,6 @@
         <image name="filled-heart" width="48" height="48"/>
         <image name="shopping-cart" width="48" height="48"/>
         <image name="store" width="18.399999618530273" height="18.399999618530273"/>
+        <image name="wallet" width="18" height="18"/>
     </resources>
 </document>

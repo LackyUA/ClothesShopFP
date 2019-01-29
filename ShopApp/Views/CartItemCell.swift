@@ -18,6 +18,7 @@ class CartItemCell: UITableViewCell {
     @IBOutlet private var itemLabels: [UILabel]!
     @IBOutlet private weak var itemSizeButton: UIButton!
     @IBOutlet private weak var itemColorButton: UIButton!
+    @IBOutlet weak var cellView: UIView!
     
     // MARK: - Actions
     @IBAction func buttonTapped(_ sender: UIButton) {
@@ -64,6 +65,9 @@ class CartItemCell: UITableViewCell {
         itemColorButton.layer.borderColor = UIColor.black.cgColor
         itemColorButton.layer.borderWidth = 0.5
         itemColorButton.backgroundColor = .red
+        
+        cellView.layer.borderWidth = 0.3
+        cellView.layer.borderColor = UIColor.lightGray.cgColor
     }
     private func loadImage(url: URL) {
         DispatchQueue.global().async { [weak self] in

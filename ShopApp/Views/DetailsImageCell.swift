@@ -12,6 +12,7 @@ class DetailsImageCell: UICollectionViewCell {
     
     // MARK: - Outlets
     @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Life cyrcle
     override func awakeFromNib() {
@@ -23,15 +24,25 @@ class DetailsImageCell: UICollectionViewCell {
     
     // MARK: - Configure cell appearence
     func configureCell(imageUrl: String) {
-        loadImage(url: URL(string: imageUrl)!)
+        imageView.image = UIImage(named: "image-placeholder")
+        if let imageUrl = URL(string: imageUrl) {
+            loadImage(url: imageUrl)
+        }
+
     }
     private func loadImage(url: URL) {
         DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
+            do {
+                if let image = UIImage(data: try Data(contentsOf: url)) {
                     DispatchQueue.main.async {
                         self?.imageView.image = image
+                        self?.activityIndicator.stopAnimating()
                     }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self?.imageView.image = UIImage(named: "image-not-available")
+                    self?.activityIndicator.stopAnimating()
                 }
             }
         }

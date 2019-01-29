@@ -13,19 +13,29 @@ class ShopItemCell: UICollectionViewCell {
     // MARK: - Outlets
     @IBOutlet private weak var itemImageView: UIImageView!
     @IBOutlet private weak var itemDescriptionLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Configure cell appearence
     func configureCell(imageUrl: String, description: NSAttributedString) {
-        loadImage(url: URL(string: imageUrl)!)
+        itemImageView.image = UIImage(named: "image-placeholder")
+        if let imageUrl = URL(string: imageUrl) {
+            loadImage(url: imageUrl)
+        }
         itemDescriptionLabel.attributedText = description
     }
     private func loadImage(url: URL) {
         DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
+            do {
+                if let image = UIImage(data: try Data(contentsOf: url)) {
                     DispatchQueue.main.async {
                         self?.itemImageView.image = image
+                        self?.activityIndicator.stopAnimating()
                     }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self?.itemImageView.image = UIImage(named: "image-not-available")
+                    self?.activityIndicator.stopAnimating()
                 }
             }
         }

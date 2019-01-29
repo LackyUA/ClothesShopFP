@@ -46,7 +46,7 @@ class CartVC: UIViewController {
     private func getDataFromFirebase() {
         if
             let currentUser = CurrentUser(),
-            let reference = createFirebaseReference(components: [FirebasePaths.users.rawValue, currentUser.uid, FirebasePaths.items.rawValue])
+            let reference = createFirebaseReference(components: [FirebasePaths.users.rawValue, currentUser.uid, FirebaseUserKeys.cart.rawValue])
         {
             let path = currentUser.path()
             

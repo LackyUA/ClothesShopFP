@@ -35,17 +35,22 @@ class ItemDetailsVC: UIViewController {
             
         // Card button
         case 1:
-            currentUser?.addItem(
-                uid: item.uid,
-                value: [
-                    FirebaseUserKeys.size.rawValue: 37,
-                    FirebaseUserKeys.color.rawValue: "Red",
-                    FirebaseUserKeys.price.rawValue: item.price,
-                    FirebaseUserKeys.name.rawValue: item.name,
-                    FirebaseUserKeys.image.rawValue: item.images.first ?? "",
-                    FirebaseUserKeys.uid.rawValue: item.uid
-                ]
-            )
+            if Connectivity.isConnectedToInternet {
+                currentUser?.addItem(
+                    uid: item.uid,
+                    value: [
+                        FirebaseUserKeys.size.rawValue: 37,
+                        FirebaseUserKeys.color.rawValue: "Red",
+                        FirebaseUserKeys.price.rawValue: item.price,
+                        FirebaseUserKeys.name.rawValue: item.name,
+                        FirebaseUserKeys.image.rawValue: item.images.first ?? "",
+                        FirebaseUserKeys.uid.rawValue: item.uid
+                    ]
+                )
+                self.present(UIAlertController.withMessage(message: "Product added to cart.\nYou can choose size, color and count of product in cart.\nThank you for choosing our shop."), animated: true)
+            } else {
+                self.present(UIAlertController.withMessage(message: "Adding product to cart failed.\nPlease check your internet connection."), animated: true)
+            }
             
         default:
             break

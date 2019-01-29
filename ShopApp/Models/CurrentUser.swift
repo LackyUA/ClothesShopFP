@@ -26,7 +26,7 @@ struct CurrentUser {
     func itemsPath() -> String {
         return [FirebasePaths.users.rawValue,
                 self.uid,
-                FirebaseUserKeys.items.rawValue].joined(separator: FirebasePathSeparator)
+                FirebaseUserKeys.cart.rawValue].joined(separator: FirebasePathSeparator)
     }
     
     func addItem(uid: String, value: [String: Any]) {
@@ -39,7 +39,7 @@ struct CurrentUser {
     private func itemPath(uid: String) -> String {
         return [FirebasePaths.users.rawValue,
                 self.uid,
-                FirebaseUserKeys.items.rawValue,
+                FirebaseUserKeys.cart.rawValue,
                 uid].joined(separator: FirebasePathSeparator)
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040014AA220048F3001D4439 /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040014A9220048F3001D4439 /* Connectivity.swift */; };
 		0437100221EC872B0027441D /* FIrebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437100121EC872B0027441D /* FIrebaseHelper.swift */; };
 		0437100421EC8CA90027441D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437100321EC8CA90027441D /* Extensions.swift */; };
 		0437100621EC92000027441D /* FirebaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437100521EC92000027441D /* FirebaseModel.swift */; };
@@ -22,6 +23,7 @@
 		0453F5112192F89E00339AAB /* ShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453F5102192F89E00339AAB /* ShopItem.swift */; };
 		0453F513219324AB00339AAB /* ShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453F512219324AB00339AAB /* ShopVC.swift */; };
 		0453F51721932EC900339AAB /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453F51621932EC900339AAB /* ShopItemCell.swift */; };
+		0457B0F9220065B500057738 /* ShopAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0457B0F8220065B500057738 /* ShopAppUITests.swift */; };
 		046DFC0821DF9B490094EA1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 046DFC0721DF9B480094EA1C /* Assets.xcassets */; };
 		04702DFC21DE36F200C39390 /* ItemDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04702DFB21DE36F200C39390 /* ItemDetailsVC.swift */; };
 		04702DFE21DE4AAB00C39390 /* DetailsImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04702DFD21DE4AAB00C39390 /* DetailsImageCell.swift */; };
@@ -32,7 +34,18 @@
 		090ECC674F4B26E63C4D5183 /* Pods_ShopApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E6D4A969EA713C3C98F8FC /* Pods_ShopApp.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0457B0FB220065B500057738 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0453F4EE2192E49700339AAB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0453F4F52192E49700339AAB;
+			remoteInfo = ShopApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		040014A9220048F3001D4439 /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		0437100121EC872B0027441D /* FIrebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIrebaseHelper.swift; sourceTree = "<group>"; };
 		0437100321EC8CA90027441D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0437100521EC92000027441D /* FirebaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseModel.swift; sourceTree = "<group>"; };
@@ -50,6 +63,9 @@
 		0453F5102192F89E00339AAB /* ShopItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItem.swift; sourceTree = "<group>"; };
 		0453F512219324AB00339AAB /* ShopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopVC.swift; sourceTree = "<group>"; };
 		0453F51621932EC900339AAB /* ShopItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItemCell.swift; sourceTree = "<group>"; };
+		0457B0F6220065B500057738 /* ShopAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0457B0F8220065B500057738 /* ShopAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopAppUITests.swift; sourceTree = "<group>"; };
+		0457B0FA220065B500057738 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		046DFC0721DF9B480094EA1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04702DFB21DE36F200C39390 /* ItemDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsVC.swift; sourceTree = "<group>"; };
 		04702DFD21DE4AAB00C39390 /* DetailsImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsImageCell.swift; sourceTree = "<group>"; };
@@ -71,6 +87,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0457B0F3220065B500057738 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				0453F4F82192E49700339AAB /* ShopApp */,
+				0457B0F7220065B500057738 /* ShopAppUITests */,
 				0453F4F72192E49700339AAB /* Products */,
 				1663613E73D3486D4D0843E1 /* Pods */,
 				2A17ECAFEE148CE88C544770 /* Frameworks */,
@@ -88,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				0453F4F62192E49700339AAB /* ShopApp.app */,
+				0457B0F6220065B500057738 /* ShopAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,6 +157,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0457B0F7220065B500057738 /* ShopAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				0457B0F8220065B500057738 /* ShopAppUITests.swift */,
+				0457B0FA220065B500057738 /* Info.plist */,
+			);
+			path = ShopAppUITests;
+			sourceTree = "<group>";
+		};
 		04702DFA21DE344600C39390 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +184,7 @@
 				047636CE21DE0AD0001F1BD1 /* Constants.swift */,
 				0437100121EC872B0027441D /* FIrebaseHelper.swift */,
 				0437100321EC8CA90027441D /* Extensions.swift */,
+				040014A9220048F3001D4439 /* Connectivity.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -193,6 +228,24 @@
 			productReference = 0453F4F62192E49700339AAB /* ShopApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		0457B0F5220065B500057738 /* ShopAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0457B0FD220065B500057738 /* Build configuration list for PBXNativeTarget "ShopAppUITests" */;
+			buildPhases = (
+				0457B0F2220065B500057738 /* Sources */,
+				0457B0F3220065B500057738 /* Frameworks */,
+				0457B0F4220065B500057738 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0457B0FC220065B500057738 /* PBXTargetDependency */,
+			);
+			name = ShopAppUITests;
+			productName = ShopAppUITests;
+			productReference = 0457B0F6220065B500057738 /* ShopAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -205,6 +258,10 @@
 				TargetAttributes = {
 					0453F4F52192E49700339AAB = {
 						CreatedOnToolsVersion = 10.1;
+					};
+					0457B0F5220065B500057738 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 0453F4F52192E49700339AAB;
 					};
 				};
 			};
@@ -222,6 +279,7 @@
 			projectRoot = "";
 			targets = (
 				0453F4F52192E49700339AAB /* ShopApp */,
+				0457B0F5220065B500057738 /* ShopAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -238,6 +296,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0457B0F4220065B500057738 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -248,6 +313,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ShopApp/Pods-ShopApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -256,6 +322,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -294,6 +361,7 @@
 			files = (
 				0444AC7721E752B8004F43AB /* CartItemCell.swift in Sources */,
 				0453F513219324AB00339AAB /* ShopVC.swift in Sources */,
+				040014AA220048F3001D4439 /* Connectivity.swift in Sources */,
 				0453F5112192F89E00339AAB /* ShopItem.swift in Sources */,
 				04702DFE21DE4AAB00C39390 /* DetailsImageCell.swift in Sources */,
 				047636D121DE1BC8001F1BD1 /* HeaderReusableView.swift in Sources */,
@@ -313,7 +381,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0457B0F2220065B500057738 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0457B0F9220065B500057738 /* ShopAppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0457B0FC220065B500057738 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0453F4F52192E49700339AAB /* ShopApp */;
+			targetProxy = 0457B0FB220065B500057738 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0453F4FD2192E49700339AAB /* Main.storyboard */ = {
@@ -489,6 +573,44 @@
 			};
 			name = Release;
 		};
+		0457B0FE220065B500057738 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q3B3DK2J6U;
+				INFOPLIST_FILE = ShopAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = yleaf.co.ShopAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ShopApp;
+			};
+			name = Debug;
+		};
+		0457B0FF220065B500057738 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q3B3DK2J6U;
+				INFOPLIST_FILE = ShopAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = yleaf.co.ShopAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ShopApp;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -506,6 +628,15 @@
 			buildConfigurations = (
 				0453F50C2192E49800339AAB /* Debug */,
 				0453F50D2192E49800339AAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0457B0FD220065B500057738 /* Build configuration list for PBXNativeTarget "ShopAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0457B0FE220065B500057738 /* Debug */,
+				0457B0FF220065B500057738 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

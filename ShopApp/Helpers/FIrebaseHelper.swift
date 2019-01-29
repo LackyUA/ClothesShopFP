@@ -37,7 +37,7 @@ enum FirebaseItemsKeys: String {
 enum FirebaseUserKeys: String {
     case uid = "uid"
     case email = "email"
-    case items = "items"
+    case cart = "cart"
     case size = "size"
     case color = "color"
     case image = "image"
