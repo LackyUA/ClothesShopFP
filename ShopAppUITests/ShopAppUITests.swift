@@ -32,77 +32,111 @@ class ShopAppUITests: XCTestCase {
     func testStroreView() {
         let app = XCUIApplication()
         
+        // Open store view
         app.tabBars.buttons.element(boundBy: 0).tap()
         
         let collectionView = app.collectionViews["collectionView--shopCollectionView"]
-        
         if collectionView.cells.count > 0 {
-            for index in 0...3 {
+            for index in 0...2 {
                 let cell = collectionView.cells.element(boundBy: index)
                 
                 cell.tap()
-                app.swipeLeft()
-                app.swipeRight()
                 
-                // Add item to cart
-                app.buttons["button--shopDetailsCartButton"].tap()
-                app.alerts.buttons.element.tap()
-                
-                // Back
-                app.buttons["button--shopDetailsBackButton"].tap()
+                testDetailsView()
             }
             XCTAssertTrue(true, "Finished validating the collection cells")
         } else {
             XCTAssertTrue(false, "Was not able to find any collection cells")
         }
         
-        app.tabBars.buttons.element(boundBy: 1).tap()
         testCartView()
+    }
+    
+    func testDetailsView() {
+        let app = XCUIApplication()
+        
+        // Swipe images
+        app.swipeLeft()
+        app.swipeRight()
+        
+        // Add item to cart
+        app.buttons["button--shopDetailsCartButton"].tap()
+        app.alerts.buttons.element.tap()
+        
+        // Back
+        app.buttons["button--shopDetailsBackButton"].tap()
     }
 
     func testCartView() {
         let app = XCUIApplication()
         
-        app.swipeUp()
+        // Open cart view
+        app.tabBars.buttons.element(boundBy: 1).tap()
+        
+        // Swipe items
         app.swipeUp()
         app.swipeDown()
         app.swipeUp()
+        app.swipeDown()
+        
+        // Detele items
+        let tableView = app.tables["table--cartTableView"]
+        
+        if tableView.cells.count > 0 {
+            let cell = tableView.cells.element(boundBy: 0)
+            cell.buttons["button--cartDeleteItemButton"].tap()
+        }
+        
+        // Swipe items
+        app.swipeUp()
+        app.swipeDown()
+        app.swipeUp()
+        app.swipeDown()
     }
-//    func testStoreFunctionality() {
-//
-//        // Assert collection view displaying
-//        let shopCollectionView = app.collectionViews["collectionView--shopCollectionView"]
-//        XCTAssertTrue(shopCollectionView.exists, "Shop collection view exists.")
-//
-//        // Get an array of cells
-//        let shopCollectionCells = shopCollectionView.cells
-//
-//        if shopCollectionCells.count > 0 {
-//            let promise = expectation(description: "Wait for collection cells")
-//
-//            for index in 0...shopCollectionCells.count - 1 {
-//                // Check if cell exists
-//                let shopCollectionViewCell = shopCollectionCells.element(boundBy: index)
-//                XCTAssertTrue(shopCollectionViewCell.exists, "The \(index) cell is placed on the collection")
-//
-//                // Tap on cell
-//                shopCollectionViewCell.tap()
-//                if index == shopCollectionCells.count {
-//                    promise.fulfill()
-//                }
-//
-//                app.swipeLeft()
-//                app.swipeRight()
-//
-//                // Back
-//                app.buttons["button--shopDetailsBackButton"].tap()
-//            }
-//
-//            waitForExpectations(timeout: 10, handler: nil)
-//            XCTAssertTrue(true, "Finished validating the collection cells")
-//        } else {
-//            XCTAssert(false, "Was not able to find any collection cells")
-//        }
-//    }
-
+    
+    func testRegistration() {
+        let app = XCUIApplication()
+        
+        // Test e-mail text field
+        app.textFields["E-mail"].tap()
+        
+        for letter in "joker" {
+            app.keys[String(describing: letter)].tap()
+        }
+        
+        app.keys["more"].tap()
+        app.keys["@"].tap()
+        
+        app.keys["more"].tap()
+        for letter in "lol" {
+            app.keys[String(describing: letter)].tap()
+        }
+        
+        app.keys["more"].tap()
+        app.keys["."].tap()
+        
+        app.keys["more"].tap()
+        for letter in "com" {
+            app.keys[String(describing: letter)].tap()
+        }
+        
+        // Test password field
+        app.textFields["Password"].tap()
+        for letter in "jokerlol" {
+            app.keys[String(describing: letter)].tap()
+        }
+        
+        // Log in button test
+        app.buttons["Log in"].tap()
+        
+        sleep(3)
+        testStroreView()
+        
+        // Open store view
+        app.tabBars.buttons.element(boundBy: 0).tap()
+        
+        // Back to log in view
+        app.navigationBars.buttons["Sign Out"].tap()
+    }
+    
 }
