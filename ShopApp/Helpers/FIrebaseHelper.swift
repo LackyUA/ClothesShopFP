@@ -9,6 +9,15 @@
 import Foundation
 import Firebase
 
+// MARK: - Firebase model protocol
+protocol FirebaseModel {
+    init?(snapshot: DataSnapshot)
+    func toDictionary() -> [String: Any]
+    func removeFromFirebase()
+    mutating func createInFirebase()
+}
+
+// MARK: - Constants
 let FirebasePathSeparator = "/"
 let FirebasePhotosPath = "photos"
 let FirebaseEmptyValue = "null"

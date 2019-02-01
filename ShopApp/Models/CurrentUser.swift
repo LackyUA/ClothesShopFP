@@ -29,10 +29,17 @@ struct CurrentUser {
                 FirebaseUserKeys.cart.rawValue].joined(separator: FirebasePathSeparator)
     }
     
-    func addItem(uid: String, value: [String: Any]) {
+    func addCartItem(uid: String, value: [String: Any]) {
         if let path = CurrentUser()?.itemPath(uid: uid) {
             let reference = Database.database().reference(withPath: path)
             reference.setValue(value)
+        }
+    }
+    
+    func updateCartItem(uid: String, value: [String: Any]) {
+        if let path = CurrentUser()?.itemPath(uid: uid) {
+            let reference = Database.database().reference(withPath: path)
+            reference.updateChildValues(value)
         }
     }
     

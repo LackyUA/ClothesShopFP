@@ -48,7 +48,7 @@ class LoginVC: UIViewController {
         }
     }
     
-    // MARK: - Life cyrcle
+    // MARK: - Life circle
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         

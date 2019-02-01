@@ -55,7 +55,7 @@ struct ShopItem: FirebaseModel {
         self.name = snapshotValue[FirebaseItemsKeys.name.rawValue].stringValue
         self.price = snapshotValue[FirebaseItemsKeys.price.rawValue].doubleValue
         self.count = snapshotValue[FirebaseItemsKeys.count.rawValue].intValue
-        self.images = snapshotValue[FirebaseItemsKeys.images.rawValue].arrayObject as! [String]
+        self.images = snapshotValue[FirebaseItemsKeys.images.rawValue].arrayObject as? [String] ?? [""]
         self.colors = snapshotValue[FirebaseItemsKeys.colors.rawValue].dictionaryObject as? [String: Int] ?? [:]
         self.sizes = snapshotValue[FirebaseItemsKeys.sizes.rawValue].dictionaryObject as? [String: Int] ?? [:]
         

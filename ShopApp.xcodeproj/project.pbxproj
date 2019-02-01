@@ -11,11 +11,11 @@
 		041912232201A7C400365D18 /* ShopAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041912222201A7C400365D18 /* ShopAppTests.swift */; };
 		0437100221EC872B0027441D /* FIrebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437100121EC872B0027441D /* FIrebaseHelper.swift */; };
 		0437100421EC8CA90027441D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437100321EC8CA90027441D /* Extensions.swift */; };
-		0437100621EC92000027441D /* FirebaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437100521EC92000027441D /* FirebaseModel.swift */; };
 		0437100821ECC85F0027441D /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437100721ECC85F0027441D /* LoginVC.swift */; };
 		0437100A21ECCAD80027441D /* LoggedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437100921ECCAD80027441D /* LoggedUser.swift */; };
 		0444AC7521E74C2D004F43AB /* CartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0444AC7421E74C2D004F43AB /* CartVC.swift */; };
 		0444AC7721E752B8004F43AB /* CartItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0444AC7621E752B8004F43AB /* CartItemCell.swift */; };
+		0448AA2A2202EA0800F2FBEB /* CartAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0448AA292202EA0800F2FBEB /* CartAlertView.swift */; };
 		0453F4FA2192E49700339AAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453F4F92192E49700339AAB /* AppDelegate.swift */; };
 		0453F4FF2192E49700339AAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0453F4FD2192E49700339AAB /* Main.storyboard */; };
 		0453F5022192E49700339AAB /* ShopApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0453F5002192E49700339AAB /* ShopApp.xcdatamodeld */; };
@@ -59,11 +59,11 @@
 		041912242201A7C400365D18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0437100121EC872B0027441D /* FIrebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIrebaseHelper.swift; sourceTree = "<group>"; };
 		0437100321EC8CA90027441D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		0437100521EC92000027441D /* FirebaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseModel.swift; sourceTree = "<group>"; };
 		0437100721ECC85F0027441D /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0437100921ECCAD80027441D /* LoggedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedUser.swift; sourceTree = "<group>"; };
 		0444AC7421E74C2D004F43AB /* CartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartVC.swift; sourceTree = "<group>"; };
 		0444AC7621E752B8004F43AB /* CartItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemCell.swift; sourceTree = "<group>"; };
+		0448AA292202EA0800F2FBEB /* CartAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAlertView.swift; sourceTree = "<group>"; };
 		0453F4F62192E49700339AAB /* ShopApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0453F4F92192E49700339AAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0453F4FE2192E49700339AAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -166,7 +166,6 @@
 		0453F5182195C7E400339AAB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0437100521EC92000027441D /* FirebaseModel.swift */,
 				0453F5102192F89E00339AAB /* ShopItem.swift */,
 				04C5B11621E8D03F00F2246E /* CartItem.swift */,
 				0437100921ECCAD80027441D /* LoggedUser.swift */,
@@ -182,6 +181,7 @@
 				0453F51621932EC900339AAB /* ShopItemCell.swift */,
 				04702DFD21DE4AAB00C39390 /* DetailsImageCell.swift */,
 				0444AC7621E752B8004F43AB /* CartItemCell.swift */,
+				0448AA292202EA0800F2FBEB /* CartAlertView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -431,13 +431,13 @@
 				040014AA220048F3001D4439 /* Connectivity.swift in Sources */,
 				0453F5112192F89E00339AAB /* ShopItem.swift in Sources */,
 				04702DFE21DE4AAB00C39390 /* DetailsImageCell.swift in Sources */,
+				0448AA2A2202EA0800F2FBEB /* CartAlertView.swift in Sources */,
 				047636D121DE1BC8001F1BD1 /* HeaderReusableView.swift in Sources */,
 				0453F51721932EC900339AAB /* ShopItemCell.swift in Sources */,
 				04702DFC21DE36F200C39390 /* ItemDetailsVC.swift in Sources */,
 				0437100A21ECCAD80027441D /* LoggedUser.swift in Sources */,
 				0453F5022192E49700339AAB /* ShopApp.xcdatamodeld in Sources */,
 				0453F4FA2192E49700339AAB /* AppDelegate.swift in Sources */,
-				0437100621EC92000027441D /* FirebaseModel.swift in Sources */,
 				0437100821ECC85F0027441D /* LoginVC.swift in Sources */,
 				0444AC7521E74C2D004F43AB /* CartVC.swift in Sources */,
 				0437100221EC872B0027441D /* FIrebaseHelper.swift in Sources */,

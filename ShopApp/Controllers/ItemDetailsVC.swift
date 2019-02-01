@@ -36,11 +36,11 @@ class ItemDetailsVC: UIViewController {
         // Card button
         case 1:
             if Connectivity.isConnectedToInternet {
-                currentUser?.addItem(
+                currentUser?.addCartItem(
                     uid: item.uid,
                     value: [
-                        FirebaseUserKeys.size.rawValue: 37,
-                        FirebaseUserKeys.color.rawValue: "Red",
+                        FirebaseUserKeys.size.rawValue: item.sizes.first?.key,
+                        FirebaseUserKeys.color.rawValue: item.colors.first?.key,
                         FirebaseUserKeys.price.rawValue: item.price,
                         FirebaseUserKeys.name.rawValue: item.name,
                         FirebaseUserKeys.image.rawValue: item.images.first ?? "",

@@ -15,12 +15,16 @@ class CartVC: UIViewController {
     private var items = [CartItem]()
     private var itemsReference: DatabaseReference?
     private var currentUserReference: DatabaseReference?
+    private var selectedCellIndexPath: IndexPath?
+    
+    // MARK: - Constants
+    private let currentUser = CurrentUser()
     
     // MARK: - Outlets
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var totalPriceLabel: UILabel!
     
-    // MARK: - Life cyrcle
+    // MARK: - Life circle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,7 +80,6 @@ class CartVC: UIViewController {
             })
         }
     }
-
 }
 
 // MARK: - Configure table view delegate
@@ -111,6 +114,7 @@ extension CartVC: UITableViewDataSource {
 
 // MARK: - Configure deleting item from cart
 extension CartVC: CartCellDelegate {
+    
     func removeCell(_ sender: CartItemCell) {
         guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
         
@@ -119,15 +123,54 @@ extension CartVC: CartCellDelegate {
         tableView.deleteRows(at: [tappedIndexPath], with: .automatic)
         totalPriceLabel.text = "Total price: \(totalPrice())$"
     }
+    
     func changeSize(_ sender: CartItemCell) {
         guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
+        selectedCellIndexPath = tappedIndexPath
         
-        print("Change size for \(tappedIndexPath.row) index")
+        presentAlert()
     }
+    
     func changeColor(_ sender: CartItemCell) {
         guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
+        selectedCellIndexPath = tappedIndexPath
         
-        print("Change color for \(tappedIndexPath.row) index")
+        presentAlert()
+    }
+    
+    private func presentAlert() {
+        let alert = self.storyboard?.instantiateViewController(withIdentifier: "CartAlertIdentifier") as! CartAlertView
+        alert.providesPresentationContextTransitionStyle = true
+        alert.definesPresentationContext = true
+        alert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        alert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        alert.delegate = self
+        
+        if let indexPath = selectedCellIndexPath {
+            alert.itemIdentifier = items[indexPath.row].uid
+        }
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Configure size/color choosing
+extension CartVC: AlertViewDelegate {
+    
+    func optionButtonTapped(selectedState: (UIColor?, String?)) {
+        if selectedState.0 != nil {
+            if let indexPath = selectedCellIndexPath {
+                var item = items[indexPath.row].toDictionary()
+                item[FirebaseUserKeys.color.rawValue] = selectedState.0?.getHexColor()
+                
+                currentUser?.updateCartItem (
+                    uid: items[indexPath.row].uid,
+                    value: item
+                )
+            }
+        } else {
+            print("size choosed")
+        }
     }
 }
 

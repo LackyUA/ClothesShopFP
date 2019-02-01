@@ -14,10 +14,11 @@ class CartItemCell: UITableViewCell {
     weak var delegate: CartCellDelegate?
 
     // MARK: - Outlets
-    @IBOutlet private weak var itemImage: UIImageView!
     @IBOutlet private var itemLabels: [UILabel]!
-    @IBOutlet private weak var itemSizeButton: UIButton!
-    @IBOutlet private weak var itemColorButton: UIButton!
+    @IBOutlet private weak var itemImage: UIImageView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var itemSizeButton: UIButton!
+    @IBOutlet weak var itemColorButton: UIButton!
     @IBOutlet weak var cellView: UIView!
     
     // MARK: - Actions
@@ -39,10 +40,18 @@ class CartItemCell: UITableViewCell {
     
     // MARK: - Configuring cell appearence
     func configureCell(item: CartItem) {
+        configureLabels(item: item)
+        configureItemSizeButton(item: item)
+        configureItemColorButton(item: item)
+        configureCellView()
+        
+        itemImage.image = UIImage(named: "image-placeholder")
         if let url = URL(string: item.image) {
             loadImage(url: url)
         }
-        
+    }
+    
+    private func configureLabels(item: CartItem) {
         for itemLabel in itemLabels {
             switch itemLabel.tag {
             case 0:
@@ -55,27 +64,44 @@ class CartItemCell: UITableViewCell {
                 break
             }
         }
-        
+    }
+    
+    private func configureItemSizeButton(item: CartItem) {
         itemSizeButton.layer.cornerRadius = 5.0
         itemSizeButton.layer.masksToBounds = true
         itemSizeButton.layer.borderColor = UIColor.black.cgColor
         itemSizeButton.layer.borderWidth = 0.5
         itemSizeButton.setTitle("\(item.size)", for: .normal)
+    }
+    
+    private func configureItemColorButton(item: CartItem) {
+        var color: UInt32 = 0
+        Scanner(string: item.color).scanHexInt32(&color)
         
+        itemColorButton.backgroundColor = UIColor(rgb: Int(color))
         itemColorButton.layer.borderColor = UIColor.black.cgColor
         itemColorButton.layer.borderWidth = 0.5
-        itemColorButton.backgroundColor = .red
-        
+    }
+    
+    private func configureCellView() {
         cellView.layer.borderWidth = 0.3
         cellView.layer.borderColor = UIColor.lightGray.cgColor
     }
+    
     private func loadImage(url: URL) {
+        
         DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
+            do {
+                if let image = UIImage(data: try Data(contentsOf: url)) {
                     DispatchQueue.main.async {
                         self?.itemImage.image = image
+                        self?.activityIndicator.stopAnimating()
                     }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self?.itemImage.image = UIImage(named: "image-not-available")
+                    self?.activityIndicator.stopAnimating()
                 }
             }
         }
