@@ -75,17 +75,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="f9p-La-8fm">
-                                            <rect key="frame" x="15" y="10" width="345" height="30"/>
+                                            <rect key="frame" x="15" y="10" width="570" height="30"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWE-Ft-UHn">
-                                                    <rect key="frame" x="0.0" y="0.0" width="168.5" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="281" height="30"/>
                                                     <color key="backgroundColor" red="0.92948027291350399" green="0.92828913038725525" blue="0.94909542336548225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button"/>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xme-qJ-cQm">
-                                                    <rect key="frame" x="176.5" y="0.0" width="168.5" height="30"/>
+                                                    <rect key="frame" x="289" y="0.0" width="281" height="30"/>
                                                     <color key="backgroundColor" red="0.92948027291350399" green="0.92828913038725525" blue="0.94909542336548225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -397,7 +397,7 @@
                                 <rect key="frame" x="0.0" y="116" width="375" height="455.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartItemCell" rowHeight="278" id="noL-L2-ewr" customClass="CartItemCell" customModule="ShopApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartItemCell" rowHeight="278" id="noL-L2-ewr" customClass="CartItemCell" customModule="ShopApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="278"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="noL-L2-ewr" id="2fy-cY-tME">
@@ -887,7 +887,7 @@
                     <connections>
                         <outlet property="alertView" destination="TIZ-TR-nIR" id="Of4-Hj-JP6"/>
                         <outlet property="cancelButton" destination="0hg-g1-aAy" id="X18-PK-zRb"/>
-                        <outlet property="headrLabel" destination="gPo-4W-KCL" id="Gf2-qm-5yK"/>
+                        <outlet property="headerLabel" destination="gPo-4W-KCL" id="Gf2-qm-5yK"/>
                         <outletCollection property="optionButtonsCollection" destination="CQl-Yj-lQh" collectionClass="NSMutableArray" id="rvK-Vk-p87"/>
                         <outletCollection property="optionButtonsCollection" destination="GDe-Nb-HBG" collectionClass="NSMutableArray" id="fp7-ei-0Uv"/>
                         <outletCollection property="optionButtonsCollection" destination="zDf-3X-AM1" collectionClass="NSMutableArray" id="99N-kZ-nr0"/>

@@ -45,6 +45,7 @@ class CartItemCell: UITableViewCell {
         configureItemColorButton(item: item)
         configureCellView()
         
+        activityIndicator.startAnimating()
         itemImage.image = UIImage(named: "image-placeholder")
         if let url = URL(string: item.image) {
             loadImage(url: url)

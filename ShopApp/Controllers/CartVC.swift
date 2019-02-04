@@ -29,7 +29,7 @@ class CartVC: UIViewController {
         super.viewDidLoad()
         
         delegation()
-        getDataFromFirebase()
+        loadCartItemsFromFirebase()
     }
     private func delegation() {
         tableView.delegate = self
@@ -47,7 +47,7 @@ class CartVC: UIViewController {
     }
     
     // MARK: - Get data from Firebase
-    private func getDataFromFirebase() {
+    private func loadCartItemsFromFirebase() {
         if
             let currentUser = CurrentUser(),
             let reference = createFirebaseReference(components: [FirebasePaths.users.rawValue, currentUser.uid, FirebaseUserKeys.cart.rawValue])
@@ -76,6 +76,22 @@ class CartVC: UIViewController {
                             }
                         }
                     })
+                }
+            })
+        }
+    }
+    
+    private func loadItemFromFirebase(itemIdentifier: String, completion: @escaping (_ item: ShopItem) -> Void) {
+        
+        if let reference = createFirebaseReference(components: [
+            FirebasePaths.assortment.rawValue,
+            FirebasePaths.items.rawValue,
+            itemIdentifier])
+        {
+            reference.observe(.value, with: { snapshot in
+                
+                if let item = ShopItem(snapshot: snapshot) {
+                    completion(item)
                 }
             })
         }
@@ -128,17 +144,21 @@ extension CartVC: CartCellDelegate {
         guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
         selectedCellIndexPath = tappedIndexPath
         
-        presentAlert()
+        loadItemFromFirebase(itemIdentifier: items[tappedIndexPath.row].uid) { item in
+            self.presentAlert(data: ["sizes": item.sizes])
+        }
     }
     
     func changeColor(_ sender: CartItemCell) {
         guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
         selectedCellIndexPath = tappedIndexPath
         
-        presentAlert()
+        loadItemFromFirebase(itemIdentifier: items[tappedIndexPath.row].uid) { item in
+            self.presentAlert(data: ["colors": item.colors])
+        }
     }
     
-    private func presentAlert() {
+    private func presentAlert(data: [String: [String: Int]]) {
         let alert = self.storyboard?.instantiateViewController(withIdentifier: "CartAlertIdentifier") as! CartAlertView
         alert.providesPresentationContextTransitionStyle = true
         alert.definesPresentationContext = true
@@ -146,9 +166,7 @@ extension CartVC: CartCellDelegate {
         alert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         alert.delegate = self
         
-        if let indexPath = selectedCellIndexPath {
-            alert.itemIdentifier = items[indexPath.row].uid
-        }
+        alert.dataForOptionButton = data
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -157,19 +175,39 @@ extension CartVC: CartCellDelegate {
 // MARK: - Configure size/color choosing
 extension CartVC: AlertViewDelegate {
     
-    func optionButtonTapped(selectedState: (UIColor?, String?)) {
-        if selectedState.0 != nil {
-            if let indexPath = selectedCellIndexPath {
-                var item = items[indexPath.row].toDictionary()
-                item[FirebaseUserKeys.color.rawValue] = selectedState.0?.getHexColor()
+    func optionButtonTapped(option: [String: String]) {
+        
+        if let dataKey = option.keys.first {
+            switch dataKey {
+            case "color":
+                if let indexPath = selectedCellIndexPath {
+                    var item = items[indexPath.row].toDictionary()
+                    if let color = option.values.first {
+                        item[FirebaseUserKeys.color.rawValue] = color
+                        
+                        currentUser?.updateCartItem (
+                            uid: items[indexPath.row].uid,
+                            value: item
+                        )
+                    }
+                }
                 
-                currentUser?.updateCartItem (
-                    uid: items[indexPath.row].uid,
-                    value: item
-                )
+            case "size":
+                if let indexPath = selectedCellIndexPath {
+                    var item = items[indexPath.row].toDictionary()
+                    if let size = option.values.first {
+                        item[FirebaseUserKeys.size.rawValue] = size
+                        
+                        currentUser?.updateCartItem (
+                            uid: items[indexPath.row].uid,
+                            value: item
+                        )
+                    }
+                }
+                
+            default:
+                break
             }
-        } else {
-            print("size choosed")
         }
     }
 }

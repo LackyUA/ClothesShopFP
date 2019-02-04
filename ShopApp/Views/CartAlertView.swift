@@ -12,26 +12,37 @@ import Firebase
 class CartAlertView: UIViewController {
 
     // MARK: - Properties
-    var itemIdentifier: String = "id"
+    var dataForOptionButton: [String: [String: Int]] = [:]
     var delegate: AlertViewDelegate?
-    private var colors = [Int]()
+    private var options = [Int]()
     private var itemReference: DatabaseReference?
     private var currentUserReference: DatabaseReference?
     
     // MARK: - Outlets
-    @IBOutlet private weak var headrLabel: UILabel!
+    @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet private var optionButtonsCollection: [UIButton]!
     @IBOutlet private weak var alertView: UIView!
     
     // MARK: - Actions
     @IBAction func optionButtonTapped(_ sender: UIButton) {
-        delegate?.optionButtonTapped(selectedState: (sender.backgroundColor ?? .black, nil))
+        if let dataKey = dataForOptionButton.keys.first {
+            switch dataKey {
+            case "colors":
+                delegate?.optionButtonTapped(option: ["color": sender.backgroundColor?.getHexColor() ?? "0x000000"])
+                
+            case "sizes":
+                delegate?.optionButtonTapped(option: ["size": sender.currentTitle ?? "37"])
+                
+            default:
+                break
+            }
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
-        delegate?.optionButtonTapped(selectedState: (nil, sender.title(for: .normal)))
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -39,7 +50,8 @@ class CartAlertView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getDataFromFirebase()
+        configureButtonsData()
+//        getDataFromFirebase()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,43 +87,65 @@ class CartAlertView: UIViewController {
         })
     }
     
-    // MARK: - Get data from Firebase
-    private func getDataFromFirebase() {
-        
-        if let reference = createFirebaseReference(components: [FirebasePaths.assortment.rawValue, FirebasePaths.items.rawValue, itemIdentifier]) {
-            self.itemReference = reference
-            
-            self.itemReference?.observe(.value, with: { snapshot in
-                
-                var itemFromSnapshot = ShopItem()
-                if let item = ShopItem(snapshot: snapshot) {
-                    itemFromSnapshot = item
-                }
-                
+    // MARK: - Configure button`s data
+    private func configureButtonsData() {
+        if let dataKey = dataForOptionButton.keys.first {
+            switch dataKey {
+            case "colors":
                 DispatchQueue.global().async {
-                    itemFromSnapshot.colors.forEach {
-                        if $0.value != 0 {
-                            var color: UInt32 = 0
-                            Scanner(string: $0.key).scanHexInt32(&color)
-                            
-                            self.colors.append(Int(color))
+                    self.dataForOptionButton.values.forEach {
+                        $0.forEach {
+                            if $0.value > 0 {
+                                var color: UInt32 = 0
+                                Scanner(string: $0.key).scanHexInt32(&color)
+                                
+                                self.options.append(Int(color))
+                            }
                         }
                     }
                     DispatchQueue.main.async {
-                        for (index, color) in self.colors.enumerated() {
+                        self.headerLabel.text = "Choose your color."
+                        
+                        for (index, option) in self.options.enumerated() {
                             for button in self.optionButtonsCollection where button.tag == index {
-                                button.backgroundColor = UIColor(rgb: color)
+                                button.backgroundColor = UIColor(rgb: option)
                                 button.isHidden = false
                             }
                         }
                     }
                 }
-            })
+                
+            case "sizes":
+                DispatchQueue.global().async {
+                    self.dataForOptionButton.values.forEach {
+                        $0.forEach {
+                            if $0.value > 0 {
+                                self.options.append(Int($0.key) ?? 33)
+                            }
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.headerLabel.text = "Choose your size."
+                        
+                        for (index, option) in self.options.enumerated() {
+                            for button in self.optionButtonsCollection where button.tag == index {
+                                button.backgroundColor = .none
+                                button.setTitle("\(option)", for: .normal)
+                                button.tintColor = .black
+                                button.isHidden = false
+                            }
+                        }
+                    }
+                }
+                
+            default:
+                break
+            }
         }
     }
 }
 
 // MARK: - Alert view delegation protocol
 protocol AlertViewDelegate: class {
-    func optionButtonTapped(selectedState: (UIColor?, String?))
+    func optionButtonTapped(option: [String: String])
 }
