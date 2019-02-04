@@ -58,6 +58,9 @@ class CartAlertView: UIViewController {
     
     private func configureOptionButtons() {
         for button in optionButtonsCollection {
+            button.layer.masksToBounds = true
+            button.layer.cornerRadius = 3.0
+            
             button.layer.borderColor = UIColor.black.cgColor
             button.layer.borderWidth = 0.3
         }

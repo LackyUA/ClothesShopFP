@@ -39,17 +39,17 @@ class ItemDetailsVC: UIViewController {
                 currentUser?.addCartItem(
                     uid: item.uid,
                     value: [
-                        FirebaseUserKeys.size.rawValue: item.sizes.first?.key,
-                        FirebaseUserKeys.color.rawValue: item.colors.first?.key,
+                        FirebaseUserKeys.size.rawValue: item.sizes.first?.key ?? 37,
+                        FirebaseUserKeys.color.rawValue: item.colors.first?.key ?? "",
                         FirebaseUserKeys.price.rawValue: item.price,
                         FirebaseUserKeys.name.rawValue: item.name,
                         FirebaseUserKeys.image.rawValue: item.images.first ?? "",
                         FirebaseUserKeys.uid.rawValue: item.uid
                     ]
                 )
-                self.present(UIAlertController.withMessage(message: "Product added to cart.\nYou can choose size, color and count of product in cart.\nThank you for choosing our shop."), animated: true)
+                self.present(UIAlertController.withMessage(message: "Item added to cart.\nYou can choose size, color and count of items in cart.\nThank you for choosing our shop."), animated: true)
             } else {
-                self.present(UIAlertController.withMessage(message: "Adding product to cart failed.\nPlease check your internet connection."), animated: true)
+                self.present(UIAlertController.withMessage(message: "Adding item to cart failed.\nPlease check your internet connection."), animated: true)
             }
             
         default:

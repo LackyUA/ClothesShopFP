@@ -19,10 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
-        if Constants.userDefaults.string(forKey: Constants.userDefaultsIdentifiers.fireBaseID) == nil {
-            Constants.userDefaults.set(UUID().uuidString.lowercased(), forKey: Constants.userDefaultsIdentifiers.fireBaseID)
-        }
-        print(Constants.userDefaults.string(forKey: Constants.userDefaultsIdentifiers.fireBaseID))
+//        if Constants.userDefaults.string(forKey: Constants.userDefaultsIdentifiers.fireBaseID) == nil {
+//            Constants.userDefaults.set(UUID().uuidString.lowercased(), forKey: Constants.userDefaultsIdentifiers.fireBaseID)
+//        }
         
         return true
     }

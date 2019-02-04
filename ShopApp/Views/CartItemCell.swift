@@ -67,7 +67,7 @@ class CartItemCell: UITableViewCell {
     }
     
     private func configureItemSizeButton(item: CartItem) {
-        itemSizeButton.layer.cornerRadius = 5.0
+        itemSizeButton.layer.cornerRadius = 3.0
         itemSizeButton.layer.masksToBounds = true
         itemSizeButton.layer.borderColor = UIColor.black.cgColor
         itemSizeButton.layer.borderWidth = 0.5
@@ -81,11 +81,17 @@ class CartItemCell: UITableViewCell {
         itemColorButton.backgroundColor = UIColor(rgb: Int(color))
         itemColorButton.layer.borderColor = UIColor.black.cgColor
         itemColorButton.layer.borderWidth = 0.5
+        
+        itemColorButton.layer.cornerRadius = 3.0
+        itemColorButton.layer.masksToBounds = true
     }
     
     private func configureCellView() {
         cellView.layer.borderWidth = 0.3
         cellView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        cellView.layer.cornerRadius = 5.0
+        cellView.layer.masksToBounds = true
     }
     
     private func loadImage(url: URL) {
