@@ -45,23 +45,23 @@ struct CartItem: FirebaseModel {
     init?(snapshot: DataSnapshot) {
         let snapshotValue = JSON(snapshot.value as Any)
         
-        self.uid = snapshotValue[FirebaseItemsKeys.uid.rawValue].stringValue
-        self.name = snapshotValue[FirebaseItemsKeys.name.rawValue].stringValue
-        self.image = snapshotValue[FirebaseItemsKeys.image.rawValue].stringValue
-        self.color = snapshotValue[FirebaseItemsKeys.color.rawValue].stringValue
-        self.size = snapshotValue[FirebaseItemsKeys.size.rawValue].intValue
-        self.price = snapshotValue[FirebaseItemsKeys.price.rawValue].doubleValue
+        self.uid = snapshotValue[Constants.firebaseItemsKeys.uid].stringValue
+        self.name = snapshotValue[Constants.firebaseItemsKeys.name].stringValue
+        self.image = snapshotValue[Constants.firebaseItemsKeys.image].stringValue
+        self.color = snapshotValue[Constants.firebaseItemsKeys.color].stringValue
+        self.size = snapshotValue[Constants.firebaseItemsKeys.size].intValue
+        self.price = snapshotValue[Constants.firebaseItemsKeys.price].doubleValue
         self.firebaseReference = snapshot.ref
     }
     
     func toDictionary() -> [String : Any] {
         return [
-            FirebaseItemsKeys.uid.rawValue: self.uid,
-            FirebaseItemsKeys.name.rawValue: self.name,
-            FirebaseItemsKeys.image.rawValue: self.image,
-            FirebaseItemsKeys.color.rawValue: self.color,
-            FirebaseItemsKeys.size.rawValue: self.size,
-            FirebaseItemsKeys.price.rawValue: self.price
+            Constants.firebaseItemsKeys.uid: self.uid,
+            Constants.firebaseItemsKeys.name: self.name,
+            Constants.firebaseItemsKeys.image: self.image,
+            Constants.firebaseItemsKeys.color: self.color,
+            Constants.firebaseItemsKeys.size: self.size,
+            Constants.firebaseItemsKeys.price: self.price
         ]
     }
     

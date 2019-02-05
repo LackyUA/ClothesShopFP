@@ -46,7 +46,7 @@ class CartItemCell: UITableViewCell {
         configureCellView()
         
         activityIndicator.startAnimating()
-        itemImage.image = UIImage(named: "image-placeholder")
+        itemImage.image = UIImage(named: Constants.imageNames.imageAvailablePlaceholder)
         if let url = URL(string: item.image) {
             loadImage(url: url)
         }
@@ -107,7 +107,7 @@ class CartItemCell: UITableViewCell {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    self?.itemImage.image = UIImage(named: "image-not-available")
+                    self?.itemImage.image = UIImage(named: Constants.imageNames.imageNotAvailablePlaceholder)
                     self?.activityIndicator.stopAnimating()
                 }
             }

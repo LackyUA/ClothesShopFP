@@ -42,7 +42,7 @@ class ShopVC: UIViewController {
     // MARK: - Firebase loader
     private func loadItemsFromFirebase() {
         
-        if let reference = createFirebaseReference(components: [FirebasePaths.assortment.rawValue, FirebasePaths.items.rawValue]) {
+        if let reference = createFirebaseReference(components: [Constants.firebasePaths.assortment, Constants.firebasePaths.items]) {
             self.itemsReference = reference
             
             self.itemsReference?.queryOrderedByKey().observe(.value, with: { snapshot in
@@ -109,13 +109,13 @@ extension ShopVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
         return Constants.shopViewInsets.sectionInsets.left
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let detailController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Details") as? ItemDetailsVC {
+        if let detailController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Constants.reusableIdentifiers.detailsViewIdentifier) as? ItemDetailsVC {
             detailController.item = items[indexPath.row]
             present(detailController, animated: true, completion: nil)
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 60)
+        return CGSize(width: view.frame.width, height: Constants.shopViewInsets.headerHeight)
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 

@@ -56,7 +56,7 @@ class LoginVC: UIViewController {
             if user != nil && user != self.currentUser {
                 self.currentUser = user
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-                    self.performSegue(withIdentifier: "LoggedIn", sender: self)
+                    self.performSegue(withIdentifier: Constants.reusableIdentifiers.loginSegueIdentifier, sender: self)
                 }
             }
         }

@@ -24,7 +24,7 @@ class DetailsImageCell: UICollectionViewCell {
     
     // MARK: - Configure cell appearence
     func configureCell(imageUrl: String) {
-        imageView.image = UIImage(named: "image-placeholder")
+        imageView.image = UIImage(named: Constants.imageNames.imageAvailablePlaceholder)
         if let imageUrl = URL(string: imageUrl) {
             loadImage(url: imageUrl)
         }
@@ -41,7 +41,7 @@ class DetailsImageCell: UICollectionViewCell {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    self?.imageView.image = UIImage(named: "image-not-available")
+                    self?.imageView.image = UIImage(named: Constants.imageNames.imageNotAvailablePlaceholder)
                     self?.activityIndicator.stopAnimating()
                 }
             }

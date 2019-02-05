@@ -17,43 +17,6 @@ protocol FirebaseModel {
     mutating func createInFirebase()
 }
 
-// MARK: - Constants
-let FirebasePathSeparator = "/"
-let FirebasePhotosPath = "photos"
-let FirebaseEmptyValue = "null"
-
-enum FirebasePaths: String {
-    case assortment = "assortment"
-    case users = "users"
-    case categories = "categories"
-    case items = "items"
-}
-
-enum FirebaseItemsKeys: String {
-    case uid = "uid"
-    case categories = "categories"
-    case colors = "colors"
-    case sizes = "sizes"
-    case count = "count"
-    case images = "images"
-    case name = "name"
-    case price = "price"
-    case color = "color"
-    case size = "size"
-    case image = "image"
-}
-
-enum FirebaseUserKeys: String {
-    case uid = "uid"
-    case email = "email"
-    case cart = "cart"
-    case size = "size"
-    case color = "color"
-    case image = "image"
-    case name = "name"
-    case price = "price"
-}
-
 func createFirebaseReference(components: [Any]?) -> DatabaseReference? {
     if let path = firebasePath(components: components) {
         return Database.database().reference(withPath: path)
@@ -80,14 +43,10 @@ fileprivate func firebasePath(components: [Any]?) -> String? {
         if let string = thing as? String {
             strings.append(string)
         }
-        
-        if let path = thing as? FirebasePaths {
-            strings.append(path.rawValue)
-        }
     }
     
     if strings.count > 0 {
-        return strings.joined(separator: FirebasePathSeparator)
+        return strings.joined(separator: Constants.firebasePaths.separator)
     }
     
     return nil

@@ -51,29 +51,29 @@ struct ShopItem: FirebaseModel {
     init?(snapshot: DataSnapshot) {
         let snapshotValue = JSON(snapshot.value as Any)
         
-        self.uid = snapshotValue[FirebaseItemsKeys.uid.rawValue].stringValue
-        self.name = snapshotValue[FirebaseItemsKeys.name.rawValue].stringValue
-        self.price = snapshotValue[FirebaseItemsKeys.price.rawValue].doubleValue
-        self.count = snapshotValue[FirebaseItemsKeys.count.rawValue].intValue
-        self.images = snapshotValue[FirebaseItemsKeys.images.rawValue].arrayObject as? [String] ?? [""]
-        self.colors = snapshotValue[FirebaseItemsKeys.colors.rawValue].dictionaryObject as? [String: Int] ?? [:]
-        self.sizes = snapshotValue[FirebaseItemsKeys.sizes.rawValue].dictionaryObject as? [String: Int] ?? [:]
+        self.uid = snapshotValue[Constants.firebaseItemsKeys.uid].stringValue
+        self.name = snapshotValue[Constants.firebaseItemsKeys.name].stringValue
+        self.price = snapshotValue[Constants.firebaseItemsKeys.price].doubleValue
+        self.count = snapshotValue[Constants.firebaseItemsKeys.count].intValue
+        self.images = snapshotValue[Constants.firebaseItemsKeys.images].arrayObject as? [String] ?? [""]
+        self.colors = snapshotValue[Constants.firebaseItemsKeys.colors].dictionaryObject as? [String: Int] ?? [:]
+        self.sizes = snapshotValue[Constants.firebaseItemsKeys.sizes].dictionaryObject as? [String: Int] ?? [:]
         
-        self.categories = stringsArrayWithTrueKeys(snapshotValue: snapshotValue[FirebaseItemsKeys.categories.rawValue].dictionaryObject) ?? [""]
+        self.categories = stringsArrayWithTrueKeys(snapshotValue: snapshotValue[Constants.firebasePaths.categories].dictionaryObject) ?? [""]
         
         self.firebaseReference = snapshot.ref
     }
     
     func toDictionary() -> [String : Any] {
         return [
-            FirebaseItemsKeys.uid.rawValue: self.uid,
-            FirebaseItemsKeys.name.rawValue: self.name,
-            FirebaseItemsKeys.price.rawValue: self.price,
-            FirebaseItemsKeys.count.rawValue: self.count,
-            FirebaseItemsKeys.categories.rawValue: self.categories,
-            FirebaseItemsKeys.images.rawValue: self.images,
-            FirebaseItemsKeys.colors.rawValue: self.colors,
-            FirebaseItemsKeys.sizes.rawValue: self.sizes
+            Constants.firebaseItemsKeys.uid: self.uid,
+            Constants.firebaseItemsKeys.name: self.name,
+            Constants.firebaseItemsKeys.price: self.price,
+            Constants.firebaseItemsKeys.count: self.count,
+            Constants.firebaseItemsKeys.categories: self.categories,
+            Constants.firebaseItemsKeys.images: self.images,
+            Constants.firebaseItemsKeys.colors: self.colors,
+            Constants.firebaseItemsKeys.sizes: self.sizes
         ]
     }
     

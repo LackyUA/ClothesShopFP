@@ -26,8 +26,8 @@ struct LoggedUser: FirebaseModel {
     init?(snapshot: DataSnapshot) {
         if
             let snapshotValue = snapshot.value as? [String: Any],
-            let uid = snapshotValue[FirebaseUserKeys.uid.rawValue] as? String,
-            let email = snapshotValue[FirebaseUserKeys.email.rawValue] as? String
+            let uid = snapshotValue[Constants.firebaseUserKeys.uid] as? String,
+            let email = snapshotValue[Constants.firebaseUserKeys.email] as? String
         {
             self.uid = uid
             self.email = email
@@ -41,8 +41,8 @@ struct LoggedUser: FirebaseModel {
     // MARK: - Convertion to dictionary
     func toDictionary() -> [String: Any] {
         return [
-            FirebaseUserKeys.uid.rawValue: self.uid,
-            FirebaseUserKeys.email.rawValue: self.email
+            Constants.firebaseUserKeys.uid: self.uid,
+            Constants.firebaseUserKeys.email: self.email
         ]
     }
     
@@ -53,14 +53,14 @@ struct LoggedUser: FirebaseModel {
     
     // MARK: - Create and save user in Firebase
     mutating func createInFirebase() {
-        let reference = Database.database().reference(withPath: FirebasePaths.users.rawValue)
+        let reference = Database.database().reference(withPath: Constants.firebasePaths.users)
         self.firebaseReference = reference.child(self.uid)
         self.firebaseReference?.setValue(self.toDictionary())
     }
     
     // MARK: - Methods for getting user`s path
     static func pathFor(uid: String) -> String {
-        return [FirebasePaths.users.rawValue, uid].joined(separator: FirebasePathSeparator)
+        return [Constants.firebasePaths.users, uid].joined(separator: Constants.firebasePaths.separator)
     }
     func path() -> String {
         return LoggedUser.pathFor(uid: self.uid)

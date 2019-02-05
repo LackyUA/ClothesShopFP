@@ -17,7 +17,7 @@ class ShopItemCell: UICollectionViewCell {
     
     // MARK: - Configure cell appearence
     func configureCell(imageUrl: String, description: NSAttributedString) {
-        itemImageView.image = UIImage(named: "image-placeholder")
+        itemImageView.image = UIImage(named: Constants.imageNames.imageAvailablePlaceholder)
         if let imageUrl = URL(string: imageUrl) {
             loadImage(url: imageUrl)
         }
@@ -34,7 +34,7 @@ class ShopItemCell: UICollectionViewCell {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    self?.itemImageView.image = UIImage(named: "image-not-available")
+                    self?.itemImageView.image = UIImage(named: Constants.imageNames.imageNotAvailablePlaceholder)
                     self?.activityIndicator.stopAnimating()
                 }
             }

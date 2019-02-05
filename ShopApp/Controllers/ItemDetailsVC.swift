@@ -39,12 +39,12 @@ class ItemDetailsVC: UIViewController {
                 currentUser?.addCartItem(
                     uid: item.uid,
                     value: [
-                        FirebaseUserKeys.size.rawValue: item.sizes.first?.key ?? 37,
-                        FirebaseUserKeys.color.rawValue: item.colors.first?.key ?? "",
-                        FirebaseUserKeys.price.rawValue: item.price,
-                        FirebaseUserKeys.name.rawValue: item.name,
-                        FirebaseUserKeys.image.rawValue: item.images.first ?? "",
-                        FirebaseUserKeys.uid.rawValue: item.uid
+                        Constants.firebaseUserKeys.size: item.sizes.first?.key ?? 37,
+                        Constants.firebaseUserKeys.color: item.colors.first?.key ?? "",
+                        Constants.firebaseUserKeys.price: item.price,
+                        Constants.firebaseUserKeys.name: item.name,
+                        Constants.firebaseUserKeys.image: item.images.first ?? "",
+                        Constants.firebaseUserKeys.uid: item.uid
                     ]
                 )
                 self.present(UIAlertController.withMessage(message: "Item added to cart.\nYou can choose size, color and count of items in cart.\nThank you for choosing our shop."), animated: true)

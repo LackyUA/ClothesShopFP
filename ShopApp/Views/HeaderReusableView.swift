@@ -19,7 +19,7 @@ class HeaderReusableView: UICollectionReusableView {
     // MARK: - Configuration header
     func configureHeader() {
         for button in headerButtons {
-            button.layer.cornerRadius = 8.0
+            button.layer.cornerRadius = Constants.shopHeaderViewInsets.cornerRadius
             button.layer.masksToBounds = true
             
             switch button.tag {

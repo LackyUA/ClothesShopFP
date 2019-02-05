@@ -16,6 +16,7 @@ class CartVC: UIViewController {
     private var itemsReference: DatabaseReference?
     private var currentUserReference: DatabaseReference?
     private var selectedCellIndexPath: IndexPath?
+    private var cellHeights: [IndexPath : CGFloat] = [:]
     
     // MARK: - Constants
     private let currentUser = CurrentUser()
@@ -50,7 +51,7 @@ class CartVC: UIViewController {
     private func loadCartItemsFromFirebase() {
         if
             let currentUser = CurrentUser(),
-            let reference = createFirebaseReference(components: [FirebasePaths.users.rawValue, currentUser.uid, FirebaseUserKeys.cart.rawValue])
+            let reference = createFirebaseReference(components: [Constants.firebasePaths.users, currentUser.uid, Constants.firebaseUserKeys.cart])
         {
             let path = currentUser.path()
             
@@ -60,7 +61,7 @@ class CartVC: UIViewController {
             self.currentUserReference?.queryOrderedByKey().observe(.value, with: { snapshot in
                 
                 if LoggedUser(snapshot: snapshot) != nil {
-                    self.itemsReference?.queryOrderedByKey().observe(.value, with: { snapshot in
+                    self.itemsReference?.queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
                         
                         var itemsFromSnapshot = [CartItem]()
                         for itemSnapshot in snapshot.children {
@@ -84,12 +85,11 @@ class CartVC: UIViewController {
     private func loadItemFromFirebase(itemIdentifier: String, completion: @escaping (_ item: ShopItem) -> Void) {
         
         if let reference = createFirebaseReference(components: [
-            FirebasePaths.assortment.rawValue,
-            FirebasePaths.items.rawValue,
+            Constants.firebasePaths.assortment,
+            Constants.firebasePaths.items,
             itemIdentifier])
         {
             reference.observe(.value, with: { snapshot in
-                
                 if let item = ShopItem(snapshot: snapshot) {
                     completion(item)
                 }
@@ -125,6 +125,12 @@ extension CartVC: UITableViewDataSource {
         
         return UITableViewCell()
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cellHeights[indexPath] = cell.frame.size.height
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return cellHeights[indexPath] ?? 70.0
+    }
     
 }
 
@@ -145,7 +151,7 @@ extension CartVC: CartCellDelegate {
         selectedCellIndexPath = tappedIndexPath
         
         loadItemFromFirebase(itemIdentifier: items[tappedIndexPath.row].uid) { item in
-            self.presentAlert(data: ["sizes": item.sizes])
+            self.presentAlert(data: [Constants.dataKeys.sizes: item.sizes])
         }
     }
     
@@ -154,12 +160,13 @@ extension CartVC: CartCellDelegate {
         selectedCellIndexPath = tappedIndexPath
         
         loadItemFromFirebase(itemIdentifier: items[tappedIndexPath.row].uid) { item in
-            self.presentAlert(data: ["colors": item.colors])
+            self.presentAlert(data: [Constants.dataKeys.colors: item.colors])
         }
     }
     
+    // MARK: - Configure alert for presenting
     private func presentAlert(data: [String: [String: Int]]) {
-        let alert = self.storyboard?.instantiateViewController(withIdentifier: "CartAlertIdentifier") as! CartAlertView
+        let alert = self.storyboard?.instantiateViewController(withIdentifier: Constants.reusableIdentifiers.cartAlertViewIdentifier) as! CartAlertView
         alert.providesPresentationContextTransitionStyle = true
         alert.definesPresentationContext = true
         alert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
@@ -179,11 +186,11 @@ extension CartVC: AlertViewDelegate {
         
         if let dataKey = option.keys.first {
             switch dataKey {
-            case "color":
+            case Constants.dataKeys.color:
                 if let indexPath = selectedCellIndexPath {
                     var item = items[indexPath.row].toDictionary()
                     if let color = option.values.first {
-                        item[FirebaseUserKeys.color.rawValue] = color
+                        item[Constants.firebaseUserKeys.color] = color
                         
                         currentUser?.updateCartItem (
                             uid: items[indexPath.row].uid,
@@ -192,11 +199,11 @@ extension CartVC: AlertViewDelegate {
                     }
                 }
                 
-            case "size":
+            case Constants.dataKeys.size:
                 if let indexPath = selectedCellIndexPath {
                     var item = items[indexPath.row].toDictionary()
                     if let size = option.values.first {
-                        item[FirebaseUserKeys.size.rawValue] = size
+                        item[Constants.firebaseUserKeys.size] = size
                         
                         currentUser?.updateCartItem (
                             uid: items[indexPath.row].uid,

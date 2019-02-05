@@ -28,11 +28,11 @@ class CartAlertView: UIViewController {
     @IBAction func optionButtonTapped(_ sender: UIButton) {
         if let dataKey = dataForOptionButton.keys.first {
             switch dataKey {
-            case "colors":
-                delegate?.optionButtonTapped(option: ["color": sender.backgroundColor?.getHexColor() ?? "0x000000"])
+            case Constants.dataKeys.colors:
+                delegate?.optionButtonTapped(option: [Constants.dataKeys.color: sender.backgroundColor?.getHexColor() ?? Constants.defaultValues.hexColor])
                 
-            case "sizes":
-                delegate?.optionButtonTapped(option: ["size": sender.currentTitle ?? "37"])
+            case Constants.dataKeys.sizes:
+                delegate?.optionButtonTapped(option: [Constants.dataKeys.size: sender.currentTitle ?? Constants.defaultValues.sizeString])
                 
             default:
                 break
@@ -51,14 +51,12 @@ class CartAlertView: UIViewController {
         super.viewDidLoad()
         
         configureButtonsData()
-//        getDataFromFirebase()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         configureInterface()
-        animateView()
     }
     
     // MARK: - Configure interface
@@ -66,6 +64,7 @@ class CartAlertView: UIViewController {
         cancelButton.layer.addBorder(side: .top, color: .darkGray, thickness: 0.4)
         
         configureOptionButtons()
+        animateView()
     }
     
     private func configureOptionButtons() {
@@ -80,10 +79,10 @@ class CartAlertView: UIViewController {
     
     private func animateView() {
         alertView.alpha = 0;
-        self.alertView.frame.origin.y = self.alertView.frame.origin.y + 500
+        self.alertView.frame.origin.y = self.alertView.frame.origin.y + Constants.cartAlertViewInsets.animationHeight
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
             self.alertView.alpha = 1.0;
-            self.alertView.frame.origin.y = self.alertView.frame.origin.y - 500
+            self.alertView.frame.origin.y = self.alertView.frame.origin.y - Constants.cartAlertViewInsets.animationHeight
         })
     }
     
@@ -91,48 +90,63 @@ class CartAlertView: UIViewController {
     private func configureButtonsData() {
         if let dataKey = dataForOptionButton.keys.first {
             switch dataKey {
-            case "colors":
+                
+            // MARK: - Configure colors
+            case Constants.dataKeys.colors:
+                self.headerLabel.text = "Choose your color."
+                
                 DispatchQueue.global().async {
                     self.dataForOptionButton.values.forEach {
-                        $0.forEach {
-                            if $0.value > 0 {
-                                var color: UInt32 = 0
-                                Scanner(string: $0.key).scanHexInt32(&color)
-                                
-                                self.options.append(Int(color))
-                            }
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        self.headerLabel.text = "Choose your color."
                         
-                        for (index, option) in self.options.enumerated() {
-                            for button in self.optionButtonsCollection where button.tag == index {
-                                button.backgroundColor = UIColor(rgb: option)
-                                button.isHidden = false
+                        for
+                            (index, option) in $0.sorted(by: { $0.key < $1.key }).enumerated()
+                            where $0.count <= self.optionButtonsCollection.count
+                        {
+                            DispatchQueue.main.async {
+                                
+                                for button in self.optionButtonsCollection where button.tag == index {
+                                    var color: UInt32 = 0
+                                    Scanner(string: option.key).scanHexInt32(&color)
+                                    
+                                    button.backgroundColor = UIColor(rgb: Int(color))
+                                    button.isHidden = false
+                                    
+                                    if option.value <= 0 {
+                                        button.isUserInteractionEnabled = false
+                                        button.backgroundColor = button.backgroundColor?.withAlphaComponent(0.2)
+                                    }
+                                }
+                                
                             }
                         }
                     }
                 }
+            
+            // MARK: - Configure sizes
+            case Constants.dataKeys.sizes:
+                self.headerLabel.text = "Choose your size."
                 
-            case "sizes":
                 DispatchQueue.global().async {
                     self.dataForOptionButton.values.forEach {
-                        $0.forEach {
-                            if $0.value > 0 {
-                                self.options.append(Int($0.key) ?? 33)
-                            }
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        self.headerLabel.text = "Choose your size."
                         
-                        for (index, option) in self.options.enumerated() {
-                            for button in self.optionButtonsCollection where button.tag == index {
-                                button.backgroundColor = .none
-                                button.setTitle("\(option)", for: .normal)
-                                button.tintColor = .black
-                                button.isHidden = false
+                        for
+                            (index, option) in $0.sorted(by: { $0.key < $1.key }).enumerated()
+                            where $0.count <= self.optionButtonsCollection.count
+                        {
+                            DispatchQueue.main.async {
+                                
+                                for button in self.optionButtonsCollection where button.tag == index {
+                                    button.backgroundColor = .none
+                                    button.tintColor = .black
+                                    button.setTitle("\(option.key)", for: .normal)
+                                    button.isHidden = false
+                                    
+                                    if option.value <= 0 {
+                                        button.isUserInteractionEnabled = false
+                                        button.tintColor = .lightGray
+                                    }
+                                }
+                                
                             }
                         }
                     }
